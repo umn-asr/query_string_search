@@ -68,7 +68,7 @@ Again, with ActiveRecord this is pretty straightforward. But if you're building 
 Second, search!
 
 ```ruby
-results = APISearch.where(
+results = ApiServiceSearching.where(
   SearchParameters.build_from_querystring(params[:q]),
   User.all #or whatever your data collection is
 )
