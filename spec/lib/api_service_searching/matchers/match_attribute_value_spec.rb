@@ -20,6 +20,16 @@ RSpec.describe MatchAttributeValue do
       end
     end
 
+    describe "given a value with spaces" do
+      let(:target) { OpenStruct.new(search_attr: "search value") }
+      let(:value) { "search value" }
+      let(:subject) { MatchAttributeValue.new(:search_attr, value) }
+
+      it "returns true" do
+        expect(subject.match?(target)).to be_truthy
+      end
+    end
+
     describe "given a target with an attribute that does not match the Parameter's attribute" do
       let(:target) { OpenStruct.new(search_attr: "other_value") }
       let(:value) { "search_value" }

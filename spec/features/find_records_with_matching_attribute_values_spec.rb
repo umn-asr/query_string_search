@@ -38,5 +38,14 @@ RSpec.describe "Finding data with matching attribute values" do
 
       expect(returned).to eq(movies_with_title)
     end
+
+    it "matches if the query-string is escaped" do
+      returned = ApiServiceSearching.where(
+        data_set,
+        "title=#{url_encode(random_movie.title)}"
+      )
+
+      expect(returned).to eq(movies_with_title)
+    end
   end
 end
