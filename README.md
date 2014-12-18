@@ -71,9 +71,9 @@ Again, with ActiveRecord this is pretty straightforward. But if you're building 
 Second, search!
 
 ```ruby
-APISearch.where(
-  SearchParameters.build_from_querystring(params[:q]),
-  Movie.all #or whatever your data collection is
+ApiServiceSearching.where(
+  Movie.all,
+  params[:q]
 )
 ```
 
