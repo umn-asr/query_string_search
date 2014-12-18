@@ -25,7 +25,7 @@ RSpec.describe MatchAttributeValue do
       let(:value) { "search_value" }
       let(:subject) { MatchAttributeValue.new(:search_attr, value) }
 
-      it "returns true" do
+      it "returns false" do
         expect(subject.match?(target)).to be_falsey
       end
     end
