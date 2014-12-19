@@ -1,5 +1,6 @@
 AllCops:
   Exclude:
+    - '**/*.gemspec'
     - 'bin/**/*'
     - 'spec/spec_helper.rb'
     - 'vendor/bundle/**/*'

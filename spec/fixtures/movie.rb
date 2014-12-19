@@ -2,7 +2,7 @@ class Movie
   attr_accessor :title, :rating, :year, :country
 
   def self.random_collection(count = 1_000)
-    (1...count).inject([]) do |collection, id|
+    (1...count).inject([]) do |collection, _|
       collection << Movie.new(random_title, random_rating, random_year, random_country)
     end
   end
@@ -28,7 +28,7 @@ class Movie
 
   def self.random_country
     %w(
-    US CAN UK HK BR RUS FR IN
+      US CAN UK HK BR RUS FR IN
     ).sample
   end
 end

@@ -21,7 +21,7 @@ class SearchOptions
   end
 
   def search_param
-    @search_param ? CGI::unescape(@search_param) : @search_param
+    @search_param ? CGI.unescape(@search_param) : @search_param
   end
 
   private

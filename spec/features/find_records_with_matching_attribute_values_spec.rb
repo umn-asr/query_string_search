@@ -27,7 +27,7 @@ RSpec.describe "Finding data with matching attribute values" do
 
   describe "when the values have spaces" do
     let(:random_movie) { data_set.sample }
-    #there's a chance that more than one movie has the same title
+    # there's a chance that more than one movie has the same title
     let(:movies_with_title) { data_set.select { |d| d.title == random_movie.title } }
 
     it "matches if the query-string is not escaped" do
