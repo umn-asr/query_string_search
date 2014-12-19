@@ -20,6 +20,10 @@ class SearchOptions
     @search_type ? @search_type.to_sym : nil
   end
 
+  def search_param
+    @search_param ? CGI.unescape(@search_param) : @search_param
+  end
+
   private
 
   attr_writer :search_type, :search_param

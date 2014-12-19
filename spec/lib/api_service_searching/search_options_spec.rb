@@ -4,7 +4,7 @@ RSpec.describe SearchOptions do
   describe "parse" do
     describe "with a single-element and multi-element query_string" do
       let(:single_query_string) { "test=filter" }
-      let(:multi_query_string) { "test=filter,test2=filter2" }
+      let(:multi_query_string) { "test=filter,test2=test%20attribute" }
       let(:single_element) { SearchOptions.parse(single_query_string) }
       let(:multi_element) { SearchOptions.parse(multi_query_string) }
 
@@ -21,9 +21,9 @@ RSpec.describe SearchOptions do
             expect(multi_element.collect(&:search_type)).to eq([:test, :test2])
           end
 
-          it "have search_param that are strings" do
+          it "have search_param that are unescaped strings" do
             expect(single_element.collect(&:search_param)).to eq(["filter"])
-            expect(multi_element.collect(&:search_param)).to eq(%w(filter filter2))
+            expect(multi_element.collect(&:search_param)).to eq(["filter", "test attribute"])
           end
         end
       end
