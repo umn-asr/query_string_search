@@ -1,6 +1,6 @@
 # API Service Searching
 
-Provides an easy way to implement searchin in your API endpoints
+Provides an easy way to implement searching in your API endpoints
 
 ## Searches it supports
 
@@ -68,7 +68,7 @@ Then every object in your data collection needs to respond to `year`.
 
 Again, with ActiveRecord this is pretty straightforward. But if you're building your data source from raw SQL then you're going to have to convert that data into objects that respond to the attributes you want to search on.
 
-Second, search!
+Second, search! In Rails you can do something like this in a Controller method.
 
 ```ruby
 ApiServiceSearching.where(
@@ -79,10 +79,22 @@ ApiServiceSearching.where(
 
 This returns a collection of the objects that matched the search criteria.
 
+Or you can do it not in the controller. This will work:
+
+```ruby
+test_query = "country=us"
+
+ApiServiceSearching.where(
+  Movie.all,
+  test_query
+)
+```
+
+You get the idea. Pass in a data set and a query-stringish string and you'll get results back.
+
+
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/api_service_searching/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+- Fork, branch, commit & pull.
+- Tests are required.
+- Don't go against our Rubocop style guidelines.
