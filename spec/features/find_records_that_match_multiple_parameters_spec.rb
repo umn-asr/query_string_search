@@ -12,9 +12,10 @@ RSpec.describe "Finding data that match multiple parameters" do
   let(:results) { movies_with_country & movies_with_year & movies_with_rating }
 
   it "Returns records that match the requested value" do
+    query_string = "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating || 'none'}"
     returned = ApiServiceSearching.where(
       data_set,
-      "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating}"
+      query_string
     )
 
     expect(returned).to eq(results)
