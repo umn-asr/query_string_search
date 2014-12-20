@@ -16,17 +16,12 @@ RSpec.describe SearchParameters do
   end
 
   describe "new" do
-
+    it "uses the factory to build each parameter" do
+      params = SearchOptions.parse("test=filter")
+      params.each do |p|
+        expect(factory).to receive(:build).with(p, matchers)
+      end
+      SearchParameters.new(params, factory, matchers)
+    end
   end
-
-  #describe "parse" do
-    #let(:query_options_class) { class_double("QueryOptions") }
-    #let(:query_options_double) { double("QueryOptions") }
-
-    #it "creates a new version of itself with the results of QueryOptions.parse" do
-      #expect(query_options_class).to receive(:parse).with("test=filter").and_return(query_options_double)
-      #expect(SearchParameters).to receive(:new).with(query_options_double)
-      #SearchParameters.parse("test=filter")
-    #end
-  #end
 end
