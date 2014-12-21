@@ -1,6 +1,8 @@
 class MatchNoAttribute < AbstractMatcher
   def match?(target)
     target.public_send(attribute).nil?
+  rescue
+    false
   end
 
   def self.reserved_words

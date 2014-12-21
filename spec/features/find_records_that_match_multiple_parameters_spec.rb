@@ -19,4 +19,17 @@ RSpec.describe "Finding data that match multiple parameters" do
 
     expect(returned).to eq(results)
   end
+
+  describe "when the objects do not respond one of the attributes" do
+    it "returns an empty collection" do
+      returned = ApiServiceSearching.where(
+        data_set,
+        "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating},monkey=golden"
+      )
+
+      expect { data_set.sample.monkey }.to raise_error(NoMethodError)
+
+      expect(returned).to eq([])
+    end
+  end
 end

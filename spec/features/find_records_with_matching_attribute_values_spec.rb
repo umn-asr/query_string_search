@@ -16,6 +16,15 @@ RSpec.describe "Finding data with matching attribute values" do
     expect(returned).to eq(movies_with_us_country)
   end
 
+  it "Returns records that match the requested value" do
+    returned = ApiServiceSearching.where(
+      data_set,
+      "country=US"
+    )
+
+    expect(returned).to eq(movies_with_us_country)
+  end
+
   it "is case-insensitive" do
     returned = ApiServiceSearching.where(
       data_set,
@@ -46,6 +55,19 @@ RSpec.describe "Finding data with matching attribute values" do
       )
 
       expect(returned).to eq(movies_with_title)
+    end
+  end
+
+  describe "when the objects do not respond to the attribute" do
+    it "" do
+      returned = ApiServiceSearching.where(
+        data_set,
+        "monkey=golden"
+      )
+
+      expect { data_set.sample.monkey }.to raise_error(NoMethodError)
+
+      expect(returned).to eq([])
     end
   end
 end
