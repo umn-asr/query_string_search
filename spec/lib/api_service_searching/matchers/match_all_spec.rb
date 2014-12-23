@@ -1,13 +1,6 @@
 require_relative "../../../../lib/api_service_searching/abstract_matcher"
 
 RSpec.describe MatchAll do
-  describe "all?" do
-    it "is true" do
-      it = MatchAll.new(:other, rand)
-      expect(it.all?).to be_truthy
-    end
-  end
-
   describe "match?" do
     it "is true" do
       it = MatchAll.new(:other, rand)

@@ -2,13 +2,6 @@ require "ostruct"
 require_relative "../../../lib/api_service_searching/abstract_matcher"
 
 RSpec.describe AbstractMatcher do
-  describe "all?" do
-    it "is false" do
-      it = AbstractMatcher.new(:other, rand)
-      expect(it.all?).to be_falsey
-    end
-  end
-
   describe "match?" do
     it "is false" do
       value = rand

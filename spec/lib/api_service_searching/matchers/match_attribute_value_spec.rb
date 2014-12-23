@@ -3,13 +3,6 @@ require_relative "../../../../lib/api_service_searching/abstract_matcher"
 Target = Struct.new(:search_attr)
 
 RSpec.describe MatchAttributeValue do
-  describe "all?" do
-    it "is false" do
-      it = MatchAttributeValue.new(:other, rand)
-      expect(it.all?).to be_falsey
-    end
-  end
-
   describe "match?" do
     describe "given a target with an attribute that matches the Parameter's attribute" do
       let(:target) { Target.new("search_value") }

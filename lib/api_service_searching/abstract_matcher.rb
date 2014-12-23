@@ -18,10 +18,6 @@ class AbstractMatcher
     self.value = value
   end
 
-  def all?
-    false
-  end
-
   def match?(_)
     false
   end

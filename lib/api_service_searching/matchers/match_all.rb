@@ -1,8 +1,4 @@
 class MatchAll < AbstractMatcher
-  def all?
-    true
-  end
-
   def match?(_)
     true
   end
