@@ -1,5 +1,6 @@
-require "ostruct"
 require_relative "../../../../lib/api_service_searching/abstract_matcher"
+
+Target = Struct.new(:search_attr)
 
 RSpec.describe MatchNoAttribute do
   describe "all?" do
@@ -10,7 +11,7 @@ RSpec.describe MatchNoAttribute do
 
   describe "match?" do
     describe "if the target's attribute is not nil" do
-      let(:target) { OpenStruct.new(search_attr: "search_value") }
+      let(:target) { Target.new("search_value") }
       let(:value) { "search_value" }
       let(:subject) { MatchNoAttribute.new(:search_attr, value) }
 
@@ -20,12 +21,22 @@ RSpec.describe MatchNoAttribute do
     end
 
     describe "if the target's attribute is nil" do
-      let(:target) { OpenStruct.new(search_attr: nil) }
+      let(:target) { Target.new(nil) }
       let(:value) { nil }
       let(:subject) { MatchNoAttribute.new(:search_attr, value) }
 
       it "is true" do
         expect(subject.match?(target)).to be_truthy
+      end
+    end
+
+    describe "if the target doesn't have the attribute" do
+      let(:value) { "search_value" }
+      let(:target) { Target.new(value) }
+      let(:subject) { MatchNoAttribute.new(:bad_attr, value) }
+
+      it "is false" do
+        expect(subject.match?(target)).to be_falsey
       end
     end
   end

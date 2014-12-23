@@ -22,4 +22,17 @@ RSpec.describe "Finding data with nil attributes" do
 
     expect(returned).to eq(movies_with_nil_ratings)
   end
+
+  describe "when the objects do not respond to the attribute" do
+    it "returns an empty collection" do
+      returned = ApiServiceSearching.where(
+        data_set,
+        "monkey=false"
+      )
+
+      expect { data_set.sample.monkey }.to raise_error(NoMethodError)
+
+      expect(returned).to be_empty
+    end
+  end
 end
