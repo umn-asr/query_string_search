@@ -1,7 +1,7 @@
 class SearchParameters
   extend Forwardable
 
-  def_delegators :@collection, :each_with_object
+  def_delegators :@collection, :each
 
   def self.build_from_querystring(query_string, factory = MatcherFactory, matchers = AbstractMatcher.matchers)
     parameters = SearchOptions.parse(query_string)

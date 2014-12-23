@@ -1,10 +1,13 @@
 module ApiServiceSearching
   def self.where(data_source, query_string)
-    search_parameters = SearchParameters.build_from_querystring(query_string)
-    result_sets = search_parameters.each_with_object([]) do |param, ret|
-      ret << (data_source.select { |c| param.match?(c) }).to_set
+    SearchParameters.build_from_querystring(query_string).each do |param|
+      data_source = filter_by_param(data_source, param)
     end
-    result_sets.inject(:intersection).to_a
+    data_source
+  end
+
+  def self.filter_by_param(data_source, param)
+    data_source.select { |c| param.match?(c) }
   end
 end
 
