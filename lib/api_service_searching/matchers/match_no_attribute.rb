@@ -1,6 +1,6 @@
 class MatchNoAttribute < AbstractMatcher
   def match?(target)
-    match_with_contingency { target.public_send(attribute).nil? }
+    match_with_contingency { !target.public_send(attribute) }
   end
 
   def self.reserved_words
