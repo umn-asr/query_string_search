@@ -20,6 +20,26 @@ RSpec.describe MatchNoAttribute do
       end
     end
 
+    describe "if the target's attribute is true" do
+      let(:target) { Target.new(true) }
+      let(:value) { true }
+      let(:subject) { MatchNoAttribute.new(:search_attr, value) }
+
+      it "is true" do
+        expect(subject.match?(target)).to be_falsey
+      end
+    end
+
+    describe "if the target's attribute is false" do
+      let(:target) { Target.new(false) }
+      let(:value) { false }
+      let(:subject) { MatchNoAttribute.new(:search_attr, value) }
+
+      it "is true" do
+        expect(subject.match?(target)).to be_truthy
+      end
+    end
+
     describe "if the target's attribute is nil" do
       let(:target) { Target.new(nil) }
       let(:value) { nil }
