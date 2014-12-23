@@ -1,8 +1,8 @@
 class MatchAttributeValue < AbstractMatcher
   def match?(target)
-    target.public_send(attribute).to_s.upcase == value.to_s.upcase
-  rescue
-    false
+    match_with_contingency do
+      target.public_send(attribute).to_s.upcase == value.to_s.upcase
+    end
   end
 
   def self.build_me?(search_type, search_param)

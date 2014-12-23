@@ -33,6 +33,14 @@ class AbstractMatcher
   def self.build_me?(_, _)
     true
   end
+
+  private
+
+  def match_with_contingency
+    yield
+  rescue
+    false
+  end
 end
 
 Dir.glob(File.join(File.dirname(__FILE__), "matchers", "*.rb")) { |file| require file }
