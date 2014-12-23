@@ -2,7 +2,7 @@ require_relative "../../lib/api_service_searching"
 require_relative "../fixtures/movie"
 
 RSpec.describe "Finding data with false attributes" do
-  let(:data_set) { Movie.random_collection(10) }
+  let(:data_set) { Movie.random_collection }
   let(:unseen_movies) { data_set.select { |d| !d.seen? } }
   let(:seen_movies) { data_set.select(&:seen?) }
 
