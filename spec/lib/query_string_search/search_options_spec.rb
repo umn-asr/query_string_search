@@ -1,12 +1,12 @@
-require_relative "../../../lib/api_service_searching/search_options"
+require_relative "../../../lib/query_string_search/search_options"
 
-RSpec.describe SearchOptions do
+RSpec.describe QueryStringSearch::SearchOptions do
   describe "parse" do
     describe "with a single-element and multi-element query_string" do
       let(:single_query_string) { "test=filter" }
       let(:multi_query_string) { "test=filter,test2=test%20attribute" }
-      let(:single_element) { SearchOptions.parse(single_query_string) }
-      let(:multi_element) { SearchOptions.parse(multi_query_string) }
+      let(:single_element) { QueryStringSearch::SearchOptions.parse(single_query_string) }
+      let(:multi_element) { QueryStringSearch::SearchOptions.parse(multi_query_string) }
 
       describe "returns a collection" do
         it "that is enumerable" do
@@ -30,7 +30,7 @@ RSpec.describe SearchOptions do
     end
 
     describe "with a nil" do
-      let(:nil_element) { SearchOptions.parse(nil) }
+      let(:nil_element) { QueryStringSearch::SearchOptions.parse(nil) }
       describe "returns a collection" do
         it "that is enumerable" do
           expect(nil_element).to respond_to(:each)

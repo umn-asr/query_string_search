@@ -1,10 +1,10 @@
-class MatchAttribute < AbstractMatcher
+class MatchNoAttribute < QueryStringSearch::AbstractMatcher
   def match?(target)
-    match_with_contingency { !target.public_send(attribute).nil? }
+    match_with_contingency { target.public_send(attribute).nil? }
   end
 
   def self.reserved_words
-    %w(true all)
+    %w(false none)
   end
 
   def self.build_me?(_, search_param)

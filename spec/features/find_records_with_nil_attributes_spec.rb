@@ -1,4 +1,4 @@
-require_relative "../../lib/api_service_searching"
+require_relative "../../lib/query_string_search"
 require_relative "../fixtures/movie"
 
 RSpec.describe "Finding data with nil attributes" do
@@ -6,33 +6,24 @@ RSpec.describe "Finding data with nil attributes" do
   let(:movies_with_nil_ratings) { data_set.select { |d| d.rating.nil? } }
 
   it "Returns nil-attribute records with a query-string value of false" do
-    returned = ApiServiceSearching.where(
-      data_set,
-      "rating=false"
-    )
+    results = QueryStringSearch.new(data_set, "rating=false").results
 
-    expect(returned).to eq(movies_with_nil_ratings)
+    expect(results).to eq(movies_with_nil_ratings)
   end
 
   it "Returns nil-attribute records with a query-string value of none" do
-    returned = ApiServiceSearching.where(
-      data_set,
-      "rating=none"
-    )
+    results = QueryStringSearch.new(data_set, "rating=none").results
 
-    expect(returned).to eq(movies_with_nil_ratings)
+    expect(results).to eq(movies_with_nil_ratings)
   end
 
   describe "when the objects do not respond to the attribute" do
     it "returns an empty collection" do
-      returned = ApiServiceSearching.where(
-        data_set,
-        "monkey=false"
-      )
+      results = QueryStringSearch.new(data_set, "monkey=false").results
 
       expect { data_set.sample.monkey }.to raise_error(NoMethodError)
 
-      expect(returned).to be_empty
+      expect(results).to be_empty
     end
   end
 end

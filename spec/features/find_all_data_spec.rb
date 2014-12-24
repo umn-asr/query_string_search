@@ -1,15 +1,11 @@
-require_relative "../../lib/api_service_searching"
+require_relative "../../lib/query_string_search"
 require_relative "../fixtures/movie"
 
-RSpec.describe ApiServiceSearching do
+RSpec.describe "Searching for all data" do
   let(:data_set) { Movie.random_collection }
 
-  it "A search with no query string returns all members of the data set" do
-    returned = ApiServiceSearching.where(
-      data_set,
-      nil
-    )
-
-    expect(returned).to eq(data_set)
+  it "Uses no query string " do
+    results = QueryStringSearch.new(data_set, nil).results
+    expect(results).to eq(data_set)
   end
 end

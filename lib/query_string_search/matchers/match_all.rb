@@ -1,4 +1,4 @@
-class MatchAll < AbstractMatcher
+class MatchAll < QueryStringSearch::AbstractMatcher
   def match?(_)
     true
   end

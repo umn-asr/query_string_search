@@ -1,4 +1,4 @@
-require_relative "../../lib/api_service_searching"
+require_relative "../../lib/query_string_search"
 require_relative "../fixtures/movie"
 
 RSpec.describe "Finding data that match multiple parameters" do
@@ -9,28 +9,23 @@ RSpec.describe "Finding data that match multiple parameters" do
   let(:movies_with_year) { data_set.select { |d| d.year == random_movie.year } }
   let(:movies_with_rating) { data_set.select { |d| d.rating == random_movie.rating } }
 
-  let(:results) { movies_with_country & movies_with_year & movies_with_rating }
+  let(:expected) { movies_with_country & movies_with_year & movies_with_rating }
 
   it "Returns records that match the requested value" do
     query_string = "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating || 'none'}"
-    returned = ApiServiceSearching.where(
-      data_set,
-      query_string
-    )
+    results = QueryStringSearch.new(data_set, query_string).results
 
-    expect(returned).to eq(results)
+    expect(expected).to eq(results)
   end
 
   describe "when the objects do not respond one of the attributes" do
     it "returns an empty collection" do
-      returned = ApiServiceSearching.where(
-        data_set,
-        "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating},monkey=golden"
-      )
+      query_string = "country=#{random_movie.country},year=#{random_movie.year},rating=#{random_movie.rating},monkey=golden"
+      results = QueryStringSearch.new(data_set, query_string).results
 
       expect { data_set.sample.monkey }.to raise_error(NoMethodError)
 
-      expect(returned).to eq([])
+      expect(results).to eq([])
     end
   end
 end

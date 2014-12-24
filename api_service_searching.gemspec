@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'api_service_searching/version'
+require 'query_string_search/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "api_service_searching"
-  spec.version       = ApiServiceSearching::VERSION
+  spec.name          = "query_string_search"
+  spec.version       = QueryStringSearch::VERSION
   spec.authors       = ["Ian Whitney"]
   spec.email         = ["whit0694@umn.edu"]
   spec.summary       = %q{Provides a standard way to do searches using query strings in an API endpoint}
