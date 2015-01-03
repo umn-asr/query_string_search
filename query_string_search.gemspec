@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ian Whitney"]
   spec.email         = ["whit0694@umn.edu"]
   spec.summary       = %q{Provides a standard way to do searches using query strings in an API endpoint}
-  spec.homepage      = ""
-  spec.license       = "https://github.com/umn-asr/query_string_search"
+  spec.homepage      = "https://github.com/umn-asr/query_string_search"
+  spec.license       = ""
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
