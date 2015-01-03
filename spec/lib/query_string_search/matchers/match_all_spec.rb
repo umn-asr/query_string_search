@@ -1,4 +1,4 @@
-require_relative "../../../../lib/api_service_searching/abstract_matcher"
+require_relative "../../../../lib/query_string_search/abstract_matcher"
 
 RSpec.describe MatchAll do
   describe "match?" do

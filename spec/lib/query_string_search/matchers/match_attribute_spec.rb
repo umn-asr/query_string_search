@@ -1,6 +1,4 @@
-require_relative "../../../../lib/api_service_searching/abstract_matcher"
-
-Target = Struct.new(:search_attr)
+require_relative "../../../../lib/query_string_search/abstract_matcher"
 
 RSpec.describe MatchAttribute do
   describe "match?" do

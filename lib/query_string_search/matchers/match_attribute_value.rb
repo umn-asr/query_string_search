@@ -1,4 +1,4 @@
-class MatchAttributeValue < AbstractMatcher
+class MatchAttributeValue < QueryStringSearch::AbstractMatcher
   def match?(target)
     match_with_contingency do
       target.public_send(attribute).to_s.upcase == value.to_s.upcase

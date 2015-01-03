@@ -1,4 +1,4 @@
-class MatchAttribute < AbstractMatcher
+class MatchAttribute < QueryStringSearch::AbstractMatcher
   def match?(target)
     match_with_contingency { target.public_send(attribute) }
   end

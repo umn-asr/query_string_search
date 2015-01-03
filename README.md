@@ -41,7 +41,7 @@ Records that match **all** the criteria will be returned. All un-rated movies ma
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'api_service_searching', git: https://github.umn.edu/asrweb/api_service_searching.git
+gem 'query_string_search', git: https://github.umn.edu/asrweb/query_string_search.git
 ```
 
 And then execute:
@@ -71,10 +71,7 @@ Again, with ActiveRecord this is pretty straightforward. But if you're building 
 Second, search! In Rails you can do something like this in a Controller method.
 
 ```ruby
-ApiServiceSearching.where(
-  Movie.all,
-  params[:q]
-)
+QueryStringSearch.new(data, query_string).results
 ```
 
 This returns a collection of the objects that matched the search criteria.
@@ -83,11 +80,7 @@ Or you can do it not in the controller. This will work:
 
 ```ruby
 test_query = "country=us"
-
-ApiServiceSearching.where(
-  Movie.all,
-  test_query
-)
+QueryStringSearch.new(Movie.all, test_query).results
 ```
 
 You get the idea. Pass in a data set and a query-stringish string and you'll get results back.
