@@ -6,8 +6,16 @@ RSpec.describe MatchAttribute do
   describe "match?" do
     describe "if the target's attribute is not nil" do
       let(:target) { Target.new("search_value") }
-      let(:value) { "search_value" }
-      let(:subject) { MatchAttribute.new(:search_attr, value) }
+      let(:subject) { MatchAttribute.new(:search_attr) }
+
+      it "is true" do
+        expect(subject.match?(target)).to be_truthy
+      end
+    end
+
+    describe "if the target's attribute is true" do
+      let(:target) { Target.new(true) }
+      let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is true" do
         expect(subject.match?(target)).to be_truthy
@@ -16,18 +24,25 @@ RSpec.describe MatchAttribute do
 
     describe "if the target's attribute is nil" do
       let(:target) { Target.new(nil) }
-      let(:value) { nil }
-      let(:subject) { MatchAttribute.new(:search_attr, value) }
+      let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is false" do
         expect(subject.match?(target)).to be_falsey
       end
     end
 
+    describe "if the target's attribute is false" do
+      let(:target) { Target.new(false) }
+      let(:subject) { MatchAttribute.new(:search_attr) }
+
+      it "is true" do
+        expect(subject.match?(target)).to be_falsey
+      end
+    end
+
     describe "if the target doesn't have the attribute" do
-      let(:value) { "search_value" }
-      let(:target) { Target.new(value) }
-      let(:subject) { MatchAttribute.new(:bad_attr, value) }
+      let(:target) { Target.new(rand) }
+      let(:subject) { MatchAttribute.new(:bad_attr) }
 
       it "is false" do
         expect(subject.match?(target)).to be_falsey
