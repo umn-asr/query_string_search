@@ -1,4 +1,4 @@
-# API Service Searching
+# Query String Search
 
 Provides an easy way to implement searching in your API endpoints
 
