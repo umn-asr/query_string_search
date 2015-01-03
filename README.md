@@ -41,7 +41,7 @@ Records that match **all** the criteria will be returned. All un-rated movies ma
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'query_string_search', git: https://github.umn.edu/asrweb/query_string_search.git
+gem 'query_string_search'
 ```
 
 And then execute:
