@@ -1,5 +1,5 @@
 class Movie
-  attr_accessor :title, :rating, :year, :country
+  attr_accessor :title, :rating, :year, :country, :seen
 
   def self.random_collection(count = 1_000)
     (1...count).inject([]) do |collection, _|
@@ -12,6 +12,11 @@ class Movie
     self.rating  = rating
     self.year    = year
     self.country = country
+    self.seen    = [true, false].sample
+  end
+
+  def seen?
+    seen
   end
 
   def self.random_title
