@@ -91,3 +91,7 @@ You get the idea. Pass in a data set and a query-stringish string and you'll get
 - Fork, branch, commit & pull.
 - Tests are required.
 - Don't go against our Rubocop style guidelines.
+
+## License
+
+© Regents of the University of Minnesota. All rights reserved.
