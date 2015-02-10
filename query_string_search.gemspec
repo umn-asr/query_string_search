@@ -6,8 +6,8 @@ require 'query_string_search/version'
 Gem::Specification.new do |spec|
   spec.name          = "query_string_search"
   spec.version       = QueryStringSearch::VERSION
-  spec.authors       = ["Ian Whitney"]
-  spec.email         = ["whit0694@umn.edu"]
+  spec.authors       = ["Ian Whitney", "Debbie Gillespie", "Davin Lagerroos"]
+  spec.email         = ["asrwebteam@umn.edu"]
   spec.summary       = %q{Provides a standard way to do searches using query strings in an API endpoint}
   spec.homepage      = "https://github.com/umn-asr/query_string_search"
   spec.license       = ""
