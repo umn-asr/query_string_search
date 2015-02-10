@@ -3,3 +3,7 @@ rvm:
 - 2.1.5
 - 2.2.0
 - 2.0.0-p598
+addons:
+  code_climate:
+    repo_token:
+      secure: XnZ8VLwsAVr3lrJ3gInolfi1dALfyu0XF74t7VExawsSGuDJzFnx4lwqw139uQHqEUNOl/lj+SHMjgEIxtoM6LjX/JBiCQLTMyKKz5EMwUvFULz4vWaGy2mgyA48WDXZL/s1k0GW7/Q8wxpdQ7uU2izx2RaJ+PLmcYUNQhNBbMI=
