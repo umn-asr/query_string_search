@@ -28,6 +28,12 @@ Returns every movie without ratings.
 
 Returns every movie with a year of 1994
 
+### Return all data that matches one of many attributes
+
+`movies?q=year=1994|1995`
+
+Returns all movies with a year of 1994 or 1995
+
 ### Combining Searches
 
 Search criteria can be separated with commas
