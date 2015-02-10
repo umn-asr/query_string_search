@@ -1,4 +1,5 @@
 require_relative "../../../../lib/query_string_search/abstract_matcher"
+require_relative "../../../doubles/search_target"
 
 RSpec.describe MatchNoAttribute do
   describe "match?" do
