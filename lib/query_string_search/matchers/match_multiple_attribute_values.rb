@@ -12,7 +12,7 @@ class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
   end
 
   def value=(x)
-    super(x.split("|").map {|a| a.upcase})
+    super(x.split("|").map(&:upcase))
   end
 
   def self.build_me?(_, search_param)
