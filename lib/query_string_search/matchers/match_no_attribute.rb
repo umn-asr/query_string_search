@@ -4,10 +4,13 @@ class MatchNoAttribute < QueryStringSearch::AbstractMatcher
   end
 
   def self.reserved_words
-    %w(false none)
+    [
+      /^false$/,
+      /^none$/
+    ]
   end
 
   def self.build_me?(_, search_param)
-    reserved_words.include?(search_param)
+    reserved_words.any? { |r| r.match(search_param) }
   end
 end

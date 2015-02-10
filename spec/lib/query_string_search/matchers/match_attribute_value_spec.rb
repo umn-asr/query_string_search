@@ -46,14 +46,14 @@ RSpec.describe MatchAttributeValue do
   describe "build_me?" do
     describe "given a non-nil search_type and search_param" do
       it "is true" do
-        expect(MatchAttributeValue.build_me?(rand, rand)).to be_truthy
+        expect(MatchAttributeValue.build_me?(rand.to_s, rand.to_s)).to be_truthy
       end
     end
 
     describe "given a nil search_type or search_param" do
       it "is false" do
-        expect(MatchAttributeValue.build_me?(rand, nil)).to be_falsey
-        expect(MatchAttributeValue.build_me?(nil, rand)).to be_falsey
+        expect(MatchAttributeValue.build_me?(rand.to_s, nil)).to be_falsey
+        expect(MatchAttributeValue.build_me?(nil, rand.to_s)).to be_falsey
         expect(MatchAttributeValue.build_me?(nil, nil)).to be_falsey
       end
     end
