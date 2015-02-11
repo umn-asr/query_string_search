@@ -5,8 +5,7 @@ RSpec.describe MatchAttributeValue do
   describe "match?" do
     describe "given a target with an attribute that matches the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "search_value") }
-      let(:value) { "search_value" }
-      let(:subject) { MatchAttributeValue.new(:property, value) }
+      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns true" do
         expect(subject.match?(target)).to be_truthy
@@ -15,8 +14,7 @@ RSpec.describe MatchAttributeValue do
 
     describe "given a value with spaces" do
       let(:target) { SearchTarget.new(property: "search value") }
-      let(:value) { "search value" }
-      let(:subject) { MatchAttributeValue.new(:property, value) }
+      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns true" do
         expect(subject.match?(target)).to be_truthy
@@ -25,8 +23,7 @@ RSpec.describe MatchAttributeValue do
 
     describe "given a target with an attribute that does not match the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "other_value") }
-      let(:value) { "search_value" }
-      let(:subject) { MatchAttributeValue.new(:property, value) }
+      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns false" do
         expect(subject.match?(target)).to be_falsey
@@ -34,9 +31,8 @@ RSpec.describe MatchAttributeValue do
     end
 
     describe "if the target doesn't have the attribute" do
-      let(:value) { "search_value" }
-      let(:target) { SearchTarget.new(property: value) }
-      let(:subject) { MatchAttribute.new(:bad_attr, value) }
+      let(:target) { SearchTarget.new(property: "search_value") }
+      let(:subject) { MatchAttribute.new(:bad_attr, "search_value") }
 
       it "is false" do
         expect(subject.match?(target)).to be_falsey
