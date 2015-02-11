@@ -1,4 +1,4 @@
-# Query String Search
+# Query String Search [![Build Status](https://api.travis-ci.org/umn-asr/query_string_search.svg?branch=master)](https://travis-ci.org/umn-asr/query_string_search) [![Code Climate](https://codeclimate.com/github/umn-asr/query_string_search/badges/gpa.svg)](https://codeclimate.com/github/umn-asr/query_string_search)
 
 Provides an easy way to implement searching in your API endpoints
 
