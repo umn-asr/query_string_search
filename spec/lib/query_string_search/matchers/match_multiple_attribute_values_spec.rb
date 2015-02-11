@@ -4,14 +4,14 @@ require_relative "../../../doubles/search_target"
 RSpec.describe MatchMultipleAttributeValues do
   describe "match?" do
     it "matches if the target's attribute is one of the values" do
-      target = SearchTarget.new(search_attr: "1994")
-      matcher = MatchMultipleAttributeValues.new(:search_attr, "1994|1995")
+      target = SearchTarget.new(property: "1994")
+      matcher = MatchMultipleAttributeValues.new(:property, "1994|1995")
       expect(matcher.match?(target)).to be_truthy
     end
 
     it "does not match if the target's attribute is not one of the values" do
-      target = SearchTarget.new(search_attr: "199")
-      matcher = MatchMultipleAttributeValues.new(:search_attr, "1994|1995")
+      target = SearchTarget.new(property: "199")
+      matcher = MatchMultipleAttributeValues.new(:property, "1994|1995")
       expect(matcher.match?(target)).to be_falsey
     end
   end

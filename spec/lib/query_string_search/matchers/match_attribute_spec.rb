@@ -4,8 +4,8 @@ require_relative "../../../doubles/search_target"
 RSpec.describe MatchAttribute do
   describe "match?" do
     describe "if the target's attribute is not nil" do
-      let(:target) { SearchTarget.new(search_attr: "search_value") }
-      let(:subject) { MatchAttribute.new(:search_attr) }
+      let(:target) { SearchTarget.new(property: "search_value") }
+      let(:subject) { MatchAttribute.new(:property) }
 
       it "is true" do
         expect(subject.match?(target)).to be_truthy
@@ -13,8 +13,8 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is true" do
-      let(:target) { SearchTarget.new(search_attr: true) }
-      let(:subject) { MatchAttribute.new(:search_attr) }
+      let(:target) { SearchTarget.new(property: true) }
+      let(:subject) { MatchAttribute.new(:property) }
 
       it "is true" do
         expect(subject.match?(target)).to be_truthy
@@ -22,8 +22,8 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is nil" do
-      let(:target) { SearchTarget.new(search_attr: nil) }
-      let(:subject) { MatchAttribute.new(:search_attr) }
+      let(:target) { SearchTarget.new(property: nil) }
+      let(:subject) { MatchAttribute.new(:property) }
 
       it "is false" do
         expect(subject.match?(target)).to be_falsey
@@ -31,8 +31,8 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is false" do
-      let(:target) { SearchTarget.new(search_attr: false) }
-      let(:subject) { MatchAttribute.new(:search_attr) }
+      let(:target) { SearchTarget.new(property: false) }
+      let(:subject) { MatchAttribute.new(:property) }
 
       it "is true" do
         expect(subject.match?(target)).to be_falsey
@@ -40,7 +40,7 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target doesn't have the attribute" do
-      let(:target) { SearchTarget.new(search_attr: rand) }
+      let(:target) { SearchTarget.new(property: rand) }
       let(:subject) { MatchAttribute.new(:bad_attr) }
 
       it "is false" do
