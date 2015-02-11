@@ -4,7 +4,7 @@ require_relative "../../../doubles/search_target"
 RSpec.describe MatchAttribute do
   describe "match?" do
     describe "if the target's attribute is not nil" do
-      let(:target) { Target.new("search_value") }
+      let(:target) { SearchTarget.new(search_attr: "search_value") }
       let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is true" do
@@ -13,7 +13,7 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is true" do
-      let(:target) { Target.new(true) }
+      let(:target) { SearchTarget.new(search_attr: true) }
       let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is true" do
@@ -22,7 +22,7 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is nil" do
-      let(:target) { Target.new(nil) }
+      let(:target) { SearchTarget.new(search_attr: nil) }
       let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is false" do
@@ -31,7 +31,7 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target's attribute is false" do
-      let(:target) { Target.new(false) }
+      let(:target) { SearchTarget.new(search_attr: false) }
       let(:subject) { MatchAttribute.new(:search_attr) }
 
       it "is true" do
@@ -40,7 +40,7 @@ RSpec.describe MatchAttribute do
     end
 
     describe "if the target doesn't have the attribute" do
-      let(:target) { Target.new(rand) }
+      let(:target) { SearchTarget.new(search_attr: rand) }
       let(:subject) { MatchAttribute.new(:bad_attr) }
 
       it "is false" do
