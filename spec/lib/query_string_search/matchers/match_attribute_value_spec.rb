@@ -14,7 +14,7 @@ RSpec.describe MatchAttributeValue do
 
     describe "given a value with spaces" do
       let(:target) { SearchTarget.new(property: "search value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
+      let(:subject) { MatchAttributeValue.new(:property, "search value") }
 
       it "returns true" do
         expect(subject.match?(target)).to be_truthy
