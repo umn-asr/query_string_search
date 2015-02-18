@@ -38,6 +38,10 @@ module QueryStringSearch
     rescue
       false
     end
+
+    def target_value(target)
+      target.public_send(attribute)
+    end
   end
 end
 Dir.glob(File.join(File.dirname(__FILE__), "matchers", "*.rb")) { |file| require file }

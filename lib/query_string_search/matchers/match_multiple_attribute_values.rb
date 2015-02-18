@@ -1,7 +1,7 @@
 class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
   def match?(target)
     match_with_contingency do
-      Comparator.does(value).contain?(target.public_send(attribute))
+      Comparator.does(value).contain?(target_value(target))
     end
   end
 
