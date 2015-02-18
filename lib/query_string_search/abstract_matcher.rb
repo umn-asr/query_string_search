@@ -1,6 +1,6 @@
 module QueryStringSearch
   class AbstractMatcher
-    attr_accessor :attribute, :value
+    attr_accessor :attribute, :desired_value
 
     def self.matchers
       descendants.push(self)
@@ -16,7 +16,7 @@ module QueryStringSearch
 
     def initialize(attribute = nil, value = nil)
       self.attribute = attribute
-      self.value = value
+      self.desired_value = value
     end
 
     def match?(_)
@@ -39,8 +39,8 @@ module QueryStringSearch
       false
     end
 
-    def target_value(target)
-      target.public_send(attribute)
+    def actual_value(actual)
+      actual.public_send(attribute)
     end
   end
 end

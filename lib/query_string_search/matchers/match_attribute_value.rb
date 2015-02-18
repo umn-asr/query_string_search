@@ -1,7 +1,7 @@
 class MatchAttributeValue < QueryStringSearch::AbstractMatcher
-  def match?(target)
+  def match?(data)
     match_with_contingency do
-      Comparator.does(value).equal?(target_value(target))
+      Comparator.does(desired_value).equal?(actual_value(data))
     end
   end
 

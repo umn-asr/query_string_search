@@ -1,21 +1,21 @@
 module Comparator
-  def self.does(target)
-    Comparison.new(target)
+  def self.does(desired)
+    Comparison.new(desired)
   end
 
   class Comparison
-    attr_accessor :target
+    attr_accessor :desired
 
-    def initialize(target)
-      self.target = target
+    def initialize(desired)
+      self.desired = desired
     end
 
     def equal?(other)
-      target.to_s.upcase == other.to_s.upcase
+      desired.to_s.upcase == other.to_s.upcase
     end
 
     def contain?(other)
-      target.map(&:to_s).map(&:upcase).include?(other.to_s.upcase)
+      desired.map(&:to_s).map(&:upcase).include?(other.to_s.upcase)
     end
   end
 end
