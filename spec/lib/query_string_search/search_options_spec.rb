@@ -4,7 +4,7 @@ RSpec.describe QueryStringSearch::SearchOptions do
   describe "parse" do
     describe "with a single-element and multi-element query_string" do
       let(:single_query_string) { "test=filter" }
-      let(:multi_query_string) { "test=filter,test2=test%20attribute" }
+      let(:multi_query_string) { "test=filter,test2=test attribute" }
       let(:single_element) { QueryStringSearch::SearchOptions.parse(single_query_string) }
       let(:multi_element) { QueryStringSearch::SearchOptions.parse(multi_query_string) }
 
