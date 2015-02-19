@@ -4,6 +4,6 @@ class MatchAll < QueryStringSearch::AbstractMatcher
   end
 
   def self.build_me?(search_option)
-    search_option.search_type.nil? && search_option.search_param.nil?
+    search_option.attribute.nil? && search_option.desired_value.nil?
   end
 end

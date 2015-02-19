@@ -5,8 +5,8 @@ module QueryStringSearch
 
       if matcher_to_build
         matcher = matcher_to_build.new
-        matcher.attribute = search_option.search_type
-        matcher.desired_value = search_option.search_param
+        matcher.attribute = search_option.attribute
+        matcher.desired_value = search_option.desired_value
         matcher
       end
     end

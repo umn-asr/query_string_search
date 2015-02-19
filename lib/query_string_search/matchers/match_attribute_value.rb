@@ -6,8 +6,8 @@ class MatchAttributeValue < QueryStringSearch::AbstractMatcher
   end
 
   def self.build_me?(search_option)
-    search_option.search_param &&
-      search_option.search_type &&
-      all_reserved_words.none? { |r| r.match(search_option.search_param) }
+    search_option.desired_value &&
+      search_option.attribute &&
+      all_reserved_words.none? { |r| r.match(search_option.desired_value) }
   end
 end

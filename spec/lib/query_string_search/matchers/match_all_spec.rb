@@ -13,27 +13,27 @@ RSpec.describe MatchAll do
   describe "build_me?" do
     let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
 
-    describe "given a nil search_type and search_param" do
+    describe "given a nil attribute and desired_value" do
       it "is true" do
-        allow(search_option).to receive(:search_type).and_return(nil)
-        allow(search_option).to receive(:search_param).and_return(nil)
+        allow(search_option).to receive(:attribute).and_return(nil)
+        allow(search_option).to receive(:desired_value).and_return(nil)
 
         expect(MatchAll.build_me?(search_option)).to be_truthy
       end
     end
 
-    describe "given a non-nil search_type or search_param" do
+    describe "given a non-nil attribute or desired_value" do
       it "is false" do
-        allow(search_option).to receive(:search_type).and_return(rand)
-        allow(search_option).to receive(:search_param).and_return(nil)
+        allow(search_option).to receive(:attribute).and_return(rand)
+        allow(search_option).to receive(:desired_value).and_return(nil)
         expect(MatchAll.build_me?(search_option)).to be_falsey
 
-        allow(search_option).to receive(:search_type).and_return(nil)
-        allow(search_option).to receive(:search_param).and_return(rand)
+        allow(search_option).to receive(:attribute).and_return(nil)
+        allow(search_option).to receive(:desired_value).and_return(rand)
         expect(MatchAll.build_me?(search_option)).to be_falsey
 
-        allow(search_option).to receive(:search_type).and_return(rand)
-        allow(search_option).to receive(:search_param).and_return(rand)
+        allow(search_option).to receive(:attribute).and_return(rand)
+        allow(search_option).to receive(:desired_value).and_return(rand)
         expect(MatchAll.build_me?(search_option)).to be_falsey
       end
     end

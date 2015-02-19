@@ -16,6 +16,6 @@ class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
   end
 
   def self.build_me?(search_option)
-    reserved_words.any? { |r| r.match(search_option.search_param) }
+    reserved_words.any? { |r| r.match(search_option.desired_value) }
   end
 end

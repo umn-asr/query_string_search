@@ -57,19 +57,19 @@ RSpec.describe MatchNoAttribute do
   describe "build_me?" do
     let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
 
-    describe "given a search param of 'none' or 'false'" do
+    describe "given a value of 'none' or 'false'" do
       it "is true" do
-        %w(none false).each do |search_param|
-          allow(search_option).to receive(:search_param).and_return(search_param)
+        %w(none false).each do |desired_value|
+          allow(search_option).to receive(:desired_value).and_return(desired_value)
           expect(MatchNoAttribute.build_me?(search_option)).to be_truthy
         end
       end
     end
 
-    describe "given a search param that is not 'none' or 'false'" do
+    describe "given a value that is not 'none' or 'false'" do
       it "is false" do
-        %w(one falsey).each do |search_param|
-          allow(search_option).to receive(:search_param).and_return(search_param)
+        %w(one falsey).each do |desired_value|
+          allow(search_option).to receive(:desired_value).and_return(desired_value)
           expect(MatchNoAttribute.build_me?(search_option)).to be_falsey
         end
       end
