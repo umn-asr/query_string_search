@@ -1,6 +1,26 @@
 require_relative "../../../lib/query_string_search/search_options"
 
 RSpec.describe QueryStringSearch::SearchOptions do
+  describe "new" do
+    describe "with inequality operators" do
+      let(:less_than_query_string) { "test<1" }
+      let(:greater_than_or_equal_query) { "test>=2" }
+
+      it "correctly splits the attribute, value and operator" do
+        less_than = QueryStringSearch::SearchOptions.new(less_than_query_string)
+        greater_or_equal = QueryStringSearch::SearchOptions.new(greater_than_or_equal_query)
+
+        expect(less_than.search_type).to eq(:test)
+        expect(less_than.search_param).to eq("1")
+        expect(less_than.operator).to eq("<")
+
+        expect(greater_or_equal.search_type).to eq(:test)
+        expect(greater_or_equal.search_param).to eq("2")
+        expect(greater_or_equal.operator).to eq(">=")
+      end
+    end
+  end
+
   describe "parse" do
     describe "with a single-element and multi-element query_string" do
       let(:single_query_string) { "test=filter" }

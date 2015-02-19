@@ -1,6 +1,6 @@
 module QueryStringSearch
   class SearchOptions
-    attr_reader :search_type, :search_param
+    attr_reader :search_type, :search_param, :operator
 
     def self.parse(query_string)
       if query_string
@@ -14,7 +14,12 @@ module QueryStringSearch
     end
 
     def initialize(raw_query)
-      self.search_type, self.search_param = raw_query.to_s.split("=")
+      parsed_query = /(?<attribute>\w+)(?<operator>\W+)(?<value>.+)/.match(raw_query)
+      if parsed_query
+        self.search_type  = parsed_query[:attribute]
+        self.search_param = parsed_query[:value]
+        self.operator     = parsed_query[:operator]
+      end
     end
 
     def search_type
@@ -23,6 +28,6 @@ module QueryStringSearch
 
     private
 
-    attr_writer :search_type, :search_param
+    attr_writer :search_type, :search_param, :operator
   end
 end
