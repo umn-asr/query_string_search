@@ -50,10 +50,13 @@ RSpec.describe MatchAttribute do
   end
 
   describe "build_me?" do
+    let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
+
     describe "given a search param of 'all' or 'true'" do
       it "is true" do
         %w(all true).each do |search_param|
-          expect(MatchAttribute.build_me?(rand, search_param)).to be_truthy
+          allow(search_option).to receive(:search_param).and_return(search_param)
+          expect(MatchAttribute.build_me?(search_option)).to be_truthy
         end
       end
     end
@@ -61,7 +64,8 @@ RSpec.describe MatchAttribute do
     describe "given a search param that is not 'all' or 'true'" do
       it "is false" do
         %w(1all rue).each do |search_param|
-          expect(MatchAttribute.build_me?(rand, search_param)).to be_falsey
+          allow(search_option).to receive(:search_param).and_return(search_param)
+          expect(MatchAttribute.build_me?(search_option)).to be_falsey
         end
       end
     end

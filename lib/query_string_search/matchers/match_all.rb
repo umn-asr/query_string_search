@@ -3,7 +3,7 @@ class MatchAll < QueryStringSearch::AbstractMatcher
     true
   end
 
-  def self.build_me?(search_type, search_param)
-    search_type.nil? && search_param.nil?
+  def self.build_me?(search_option)
+    search_option.search_type.nil? && search_option.search_param.nil?
   end
 end

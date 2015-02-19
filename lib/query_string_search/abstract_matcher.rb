@@ -27,7 +27,7 @@ module QueryStringSearch
       []
     end
 
-    def self.build_me?(_, _)
+    def self.build_me?(_)
       true
     end
 

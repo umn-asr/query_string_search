@@ -13,7 +13,7 @@ RSpec.describe QueryStringSearch::AbstractMatcher do
 
   describe "build_me?" do
     it "is true" do
-      it = QueryStringSearch::AbstractMatcher.build_me?(rand, rand)
+      it = QueryStringSearch::AbstractMatcher.build_me?(Object.new)
       expect(it).to be_truthy
     end
   end

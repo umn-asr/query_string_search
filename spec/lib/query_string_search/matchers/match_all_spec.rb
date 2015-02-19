@@ -9,17 +9,30 @@ RSpec.describe MatchAll do
   end
 
   describe "build_me?" do
+    let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
+
     describe "given a nil search_type and search_param" do
       it "is true" do
-        expect(MatchAll.build_me?(nil, nil)).to be_truthy
+        allow(search_option).to receive(:search_type).and_return(nil)
+        allow(search_option).to receive(:search_param).and_return(nil)
+
+        expect(MatchAll.build_me?(search_option)).to be_truthy
       end
     end
 
     describe "given a non-nil search_type or search_param" do
       it "is false" do
-        expect(MatchAll.build_me?(rand, nil)).to be_falsey
-        expect(MatchAll.build_me?(nil, rand)).to be_falsey
-        expect(MatchAll.build_me?(rand, rand)).to be_falsey
+        allow(search_option).to receive(:search_type).and_return(rand)
+        allow(search_option).to receive(:search_param).and_return(nil)
+        expect(MatchAll.build_me?(search_option)).to be_falsey
+
+        allow(search_option).to receive(:search_type).and_return(nil)
+        allow(search_option).to receive(:search_param).and_return(rand)
+        expect(MatchAll.build_me?(search_option)).to be_falsey
+
+        allow(search_option).to receive(:search_type).and_return(rand)
+        allow(search_option).to receive(:search_param).and_return(rand)
+        expect(MatchAll.build_me?(search_option)).to be_falsey
       end
     end
   end

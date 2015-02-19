@@ -26,21 +26,29 @@ RSpec.describe MatchMultipleAttributeValues do
   end
 
   describe "build_me?" do
+    let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
+
     describe "given a search type and search param that contains a pipe" do
       it "is true" do
-        expect(MatchMultipleAttributeValues.build_me?(rand, "x|y")).to be_truthy
+        allow(search_option).to receive(:search_type).and_return(rand.to_s)
+        allow(search_option).to receive(:search_param).and_return("x|y")
+        expect(MatchMultipleAttributeValues.build_me?(search_option)).to be_truthy
       end
     end
 
     describe "given a search type and search param that starts with a pipe" do
       it "is false" do
-        expect(MatchMultipleAttributeValues.build_me?(rand, "|x|y")).to be_falsey
+        allow(search_option).to receive(:search_type).and_return(rand.to_s)
+        allow(search_option).to receive(:search_param).and_return("|x|y")
+        expect(MatchMultipleAttributeValues.build_me?(search_option)).to be_falsey
       end
     end
 
     describe "given a search type without a pipe" do
       it "is false" do
-        expect(MatchMultipleAttributeValues.build_me?(rand, "xy")).to be_falsey
+        allow(search_option).to receive(:search_type).and_return(rand.to_s)
+        allow(search_option).to receive(:search_param).and_return("xy")
+        expect(MatchMultipleAttributeValues.build_me?(search_option)).to be_falsey
       end
     end
   end
