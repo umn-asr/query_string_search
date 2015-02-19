@@ -6,7 +6,9 @@ RSpec.describe QueryStringSearch::AbstractMatcher do
     it "is false" do
       value = rand
       target = OpenStruct.new(other: value)
-      it = QueryStringSearch::AbstractMatcher.new(:other, value)
+      it = QueryStringSearch::AbstractMatcher.new
+      it.attribute = :other
+      it.desired_value = value
       expect(it.match?(target)).to be_falsey
     end
   end

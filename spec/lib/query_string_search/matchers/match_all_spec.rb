@@ -3,7 +3,9 @@ require_relative "../../../../lib/query_string_search/abstract_matcher"
 RSpec.describe MatchAll do
   describe "match?" do
     it "is true" do
-      it = MatchAll.new(:other, rand)
+      it = MatchAll.new
+      it.attribute = :other
+      it.desired_value = rand
       expect(it.match?(rand)).to be_truthy
     end
   end

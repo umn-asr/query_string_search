@@ -14,11 +14,6 @@ module QueryStringSearch
       descendants.each_with_object([]) { |d, ret| ret << d.reserved_words }.flatten
     end
 
-    def initialize(attribute = nil, value = nil)
-      self.attribute = attribute
-      self.desired_value = value
-    end
-
     def match?(_)
       false
     end

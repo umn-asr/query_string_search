@@ -5,20 +5,26 @@ RSpec.describe MatchMultipleAttributeValues do
   describe "match?" do
     it "matches if the target's attribute is one of the values" do
       target = SearchTarget.new(property: "1994")
-      matcher = MatchMultipleAttributeValues.new(:property, "1994|1995")
+      matcher = MatchMultipleAttributeValues.new
+      matcher.attribute = :property
+      matcher.desired_value = "1994|1995"
       expect(matcher.match?(target)).to be_truthy
     end
 
     it "does not match if the target's attribute is not one of the values" do
       target = SearchTarget.new(property: "199")
-      matcher = MatchMultipleAttributeValues.new(:property, "1994|1995")
+      matcher = MatchMultipleAttributeValues.new
+      matcher.attribute = :property
+      matcher.desired_value = "1994|1995"
       expect(matcher.match?(target)).to be_falsey
     end
 
     describe "if the target doesn't have the attribute" do
       it "is false" do
         target = SearchTarget.new(property: "1994")
-        subject = MatchAttribute.new(:bad_attr, "1994|1995")
+        matcher = MatchMultipleAttributeValues.new
+        matcher.attribute = :bad_attr
+        matcher.desired_value = "1994|1995"
 
         expect(subject.match?(target)).to be_falsey
       end

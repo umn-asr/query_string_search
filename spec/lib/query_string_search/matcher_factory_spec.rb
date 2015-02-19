@@ -13,10 +13,13 @@ RSpec.describe QueryStringSearch::MatcherFactory do
 
   describe "build" do
     describe "finds a matcher to build" do
-      it "builds that matcher and returns it" do
-        test_return = Object.new
+      it "builds that matcher, configures and returns it" do
+        test_return = instance_double(QueryStringSearch::AbstractMatcher.matchers.sample)
+        expect(test_return).to receive(:attribute=).with("test_search_type")
+        expect(test_return).to receive(:desired_value=).with("test_search_param")
+
         expect(matcher_double).to receive(:build_me?).with(param_double).and_return(true)
-        expect(matcher_double).to receive(:new).with(param_double.search_type, param_double.search_param).and_return(test_return)
+        expect(matcher_double).to receive(:new).and_return(test_return)
         expect(QueryStringSearch::MatcherFactory.build(param_double, build_candidates)).to eq(test_return)
       end
     end

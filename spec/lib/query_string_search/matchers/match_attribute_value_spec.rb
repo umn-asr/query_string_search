@@ -5,37 +5,45 @@ RSpec.describe MatchAttributeValue do
   describe "match?" do
     describe "given a target with an attribute that matches the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "search_value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns true" do
-        expect(subject.match?(target)).to be_truthy
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search_value"
+        expect(matcher.match?(target)).to be_truthy
       end
     end
 
     describe "given a value with spaces" do
       let(:target) { SearchTarget.new(property: "search value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search value") }
 
       it "returns true" do
-        expect(subject.match?(target)).to be_truthy
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search value"
+        expect(matcher.match?(target)).to be_truthy
       end
     end
 
     describe "given a target with an attribute that does not match the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "other_value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns false" do
-        expect(subject.match?(target)).to be_falsey
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search_value"
+        expect(matcher.match?(target)).to be_falsey
       end
     end
 
     describe "if the target doesn't have the attribute" do
       let(:target) { SearchTarget.new(property: "search_value") }
-      let(:subject) { MatchAttribute.new(:bad_attr, "search_value") }
 
       it "is false" do
-        expect(subject.match?(target)).to be_falsey
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :bat_attr
+        matcher.desired_value = "search_value"
+        expect(matcher.match?(target)).to be_falsey
       end
     end
   end
