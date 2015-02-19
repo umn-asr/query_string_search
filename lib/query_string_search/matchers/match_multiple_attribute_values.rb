@@ -1,7 +1,7 @@
 class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
-  def match?(target)
+  def match?(data)
     match_with_contingency do
-      value.include?(target.public_send(attribute).to_s.upcase)
+      Comparator.does(desired_value).contain?(actual_value(data))
     end
   end
 
@@ -11,8 +11,8 @@ class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
     ]
   end
 
-  def value=(x)
-    super(x.split("|").map(&:upcase))
+  def desired_value=(x)
+    super(x.split("|"))
   end
 
   def self.build_me?(_, search_param)

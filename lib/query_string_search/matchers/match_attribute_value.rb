@@ -1,7 +1,7 @@
 class MatchAttributeValue < QueryStringSearch::AbstractMatcher
-  def match?(target)
+  def match?(data)
     match_with_contingency do
-      target.public_send(attribute).to_s.upcase == value.to_s.upcase
+      Comparator.does(desired_value).equal?(actual_value(data))
     end
   end
 
