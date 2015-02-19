@@ -11,11 +11,19 @@ module Comparator
     end
 
     def equal?(other)
-      desired.to_s.upcase == other.to_s.upcase
+      normalize(desired) == normalize(other)
+    end
+
+    def normalize(unnormalized)
+      if unnormalized.respond_to?(:each)
+        unnormalized.map(&:to_s).map(&:upcase)
+      else
+        unnormalized.to_s.upcase
+      end
     end
 
     def contain?(other)
-      desired.map(&:to_s).map(&:upcase).include?(other.to_s.upcase)
+      normalize(desired).include?(normalize(other))
     end
   end
 end
