@@ -1,17 +1,17 @@
 module Comparator
-  def self.does(desired)
-    Comparison.new(desired)
+  def self.does(subject)
+    Comparison.new(subject)
   end
 
   class Comparison
-    attr_accessor :desired
+    attr_accessor :subject
 
-    def initialize(desired)
-      self.desired = desired
+    def initialize(subject)
+      self.subject = subject
     end
 
     def equal?(other)
-      normalize(desired) == normalize(other)
+      normalize(subject) == normalize(other)
     end
 
     def normalize(unnormalized)
@@ -23,7 +23,7 @@ module Comparator
     end
 
     def contain?(other)
-      normalize(desired).include?(normalize(other))
+      normalize(subject).include?(normalize(other))
     end
   end
 end
