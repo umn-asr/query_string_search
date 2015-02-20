@@ -26,10 +26,10 @@ module QueryStringSearch
     end
 
     def initialize(match_data)
-      match_data = match_data ? match_data : {}
-      self.attribute = match_data[:attribute]
+      match_data         = match_data ? match_data : {}
+      self.attribute     = match_data[:attribute]
       self.desired_value = match_data[:desired_value]
-      self.operator = match_data[:operator]
+      self.operator      = match_data[:operator]
     end
   end
 end
