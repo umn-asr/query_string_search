@@ -51,25 +51,31 @@ module QueryStringSearch
       attr_accessor :subject, :operator, :other
 
       def compare
-        if operator == "="
+        if ["=".to_sym].include?(operator)
           equal?
-        elsif operator == "∈"
+        elsif [:∈].include?(operator)
           contain?
-        elsif ["<",">","<=",">="]
+        elsif [:<, :>, :<=, :>=].include?(operator)
           inequal?
+        else
+          false
         end
       end
 
+      def operator=(x)
+        @operator = x.to_sym
+      end
+
       def inequal?
-        eval("#{other} #{operator} #{subject}")
+        other.to_i.public_send(operator, subject.to_i)
       end
 
       def equal?
-        normalize(subject) == normalize(other)
+        normalize(other).public_send(:==, normalize(subject))
       end
 
       def contain?
-        normalize(subject).include?(normalize(other))
+        normalize(subject).public_send(:&, [normalize(other)]).any?
       end
 
       def normalize(unnormalized)
