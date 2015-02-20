@@ -13,11 +13,11 @@ RSpec.describe QueryStringSearch::Comparator do
     end
 
     describe "Using the equal? alias" do
-        it "returns true if the values are equal?" do
-          value = rand
-          comparison = QueryStringSearch::Comparator.does(value).equal?(value)
-          expect(comparison).to be_truthy
-        end
+      it "returns true if the values are equal?" do
+        value = rand
+        comparison = QueryStringSearch::Comparator.does(value).equal?(value)
+        expect(comparison).to be_truthy
+      end
     end
   end
 

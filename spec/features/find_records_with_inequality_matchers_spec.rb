@@ -2,7 +2,6 @@ require_relative "../../lib/query_string_search"
 require_relative "../fixtures/movie"
 
 RSpec.describe "Finding data with inequality matchers" do
-
   describe "Allows searching for values greater than a number" do
     let(:data_set) { Movie.random_collection }
     let(:movies_with_more_than_one_star) { data_set.select { |d| d.star_rating > 1 } }
