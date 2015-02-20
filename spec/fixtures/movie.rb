@@ -1,7 +1,7 @@
 class Movie
   attr_accessor :title, :rating, :year, :country, :seen, :star_rating
 
-  def self.random_collection(count = 1_000)
+  def self.random_collection(count = 100)
     (1...count).map { |_| Movie.random }
   end
 
