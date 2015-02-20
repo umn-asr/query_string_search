@@ -9,6 +9,7 @@ RSpec.describe QueryStringSearch::AbstractMatcher do
       it = QueryStringSearch::AbstractMatcher.new
       it.attribute = :other
       it.desired_value = value
+      it.operator = "="
       expect(it.match?(target)).to be_falsey
     end
   end

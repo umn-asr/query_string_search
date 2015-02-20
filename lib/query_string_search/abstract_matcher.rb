@@ -1,6 +1,6 @@
 module QueryStringSearch
   class AbstractMatcher
-    attr_accessor :attribute, :desired_value
+    attr_accessor :attribute, :desired_value, :operator
 
     def self.matchers
       descendants.push(self)

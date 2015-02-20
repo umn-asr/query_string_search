@@ -9,6 +9,7 @@ RSpec.describe QueryStringSearch::MatcherFactory do
   before do
     allow(param_double).to receive(:desired_value).and_return("test_search_value")
     allow(param_double).to receive(:attribute).and_return("test_search_attribute")
+    allow(param_double).to receive(:operator).and_return("test_operator")
   end
 
   describe "build" do
@@ -17,6 +18,7 @@ RSpec.describe QueryStringSearch::MatcherFactory do
         test_return = instance_double(QueryStringSearch::AbstractMatcher.matchers.sample)
         expect(test_return).to receive(:attribute=).with("test_search_attribute")
         expect(test_return).to receive(:desired_value=).with("test_search_value")
+        expect(test_return).to receive(:operator=).with("test_operator")
 
         expect(matcher_double).to receive(:build_me?).with(param_double).and_return(true)
         expect(matcher_double).to receive(:new).and_return(test_return)

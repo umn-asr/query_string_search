@@ -10,6 +10,7 @@ RSpec.describe MatchAttributeValue do
         matcher = MatchAttributeValue.new
         matcher.attribute = :property
         matcher.desired_value = "search_value"
+        matcher.operator = "="
         expect(matcher.match?(target)).to be_truthy
       end
     end
@@ -21,6 +22,7 @@ RSpec.describe MatchAttributeValue do
         matcher = MatchAttributeValue.new
         matcher.attribute = :property
         matcher.desired_value = "search value"
+        matcher.operator = "="
         expect(matcher.match?(target)).to be_truthy
       end
     end
@@ -32,6 +34,7 @@ RSpec.describe MatchAttributeValue do
         matcher = MatchAttributeValue.new
         matcher.attribute = :property
         matcher.desired_value = "search_value"
+        matcher.operator = "="
         expect(matcher.match?(target)).to be_falsey
       end
     end
@@ -43,6 +46,7 @@ RSpec.describe MatchAttributeValue do
         matcher = MatchAttributeValue.new
         matcher.attribute = :bat_attr
         matcher.desired_value = "search_value"
+        matcher.operator = "="
         expect(matcher.match?(target)).to be_falsey
       end
     end
