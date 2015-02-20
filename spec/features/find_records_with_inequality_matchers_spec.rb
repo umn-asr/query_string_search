@@ -21,7 +21,7 @@ RSpec.describe "Finding data with inequality matchers" do
     it "Returns records that match the requested value" do
       results = QueryStringSearch.new(data_set, "star_rating<3").results
 
-      expect(results).to eq(movies_with_more_than_one_star)
+      expect(results).to eq(movies_with_fewer_than_three_stars)
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe "Finding data with inequality matchers" do
     it "Returns records that match the requested value" do
       results = QueryStringSearch.new(data_set, "star_rating>=2").results
 
-      expect(results).to eq(movies_with_more_than_one_star)
+      expect(results).to eq(movies_with_two_or_more_stars)
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe "Finding data with inequality matchers" do
     it "Returns records that match the requested value" do
       results = QueryStringSearch.new(data_set, "star_rating<=4").results
 
-      expect(results).to eq(movies_with_more_than_one_star)
+      expect(results).to eq(movies_with_four_or_fewer_stars)
     end
   end
 end
