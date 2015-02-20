@@ -1,18 +1,69 @@
 module QueryStringSearch
   module Comparator
-    def self.does(subject)
-      Comparison.new(subject)
+    def self.using(operator)
+      create_comparison
+      comparison.operator = operator
+      self
     end
 
-    class Comparison
-      attr_accessor :subject
+    def self.does(subject)
+      create_comparison
+      comparison.subject = subject
+      self
+    end
 
-      def initialize(subject)
-        self.subject = subject
+    def self.equal?(other)
+      comparison.operator = "="
+      compare_with?(other)
+    end
+
+    def self.contain?(other)
+      comparison.operator = "∈"
+      compare_with?(other)
+    end
+
+    def self.compare_with?(other)
+      comparison.other = other
+      resolve
+    end
+
+    private
+
+    def self.create_comparison
+      @comparison ||= Comparison.new
+    end
+
+    def self.comparison
+      @comparison
+    end
+
+    def self.resolve
+      ret = @comparison.compare
+      @comparison = nil
+      ret
+    end
+  end
+end
+
+module QueryStringSearch
+  module Comparator
+    class Comparison
+      attr_accessor :subject, :operator, :other
+
+      def compare
+        if operator == "="
+          equal?
+        elsif operator == "∈"
+          contain?
+        end
       end
 
-      def equal?(other)
+      def equal?
         normalize(subject) == normalize(other)
+      end
+
+      def contain?
+        normalize(subject).include?(normalize(other))
       end
 
       def normalize(unnormalized)
@@ -21,10 +72,6 @@ module QueryStringSearch
         else
           unnormalized.to_s.upcase
         end
-      end
-
-      def contain?(other)
-        normalize(subject).include?(normalize(other))
       end
     end
   end
