@@ -27,7 +27,7 @@ RSpec.describe QueryStringSearch::Comparator do
         it "returns true if the values is a member of the collection" do
           set = [1, 2, 3]
           value = set.sample
-          comparison = QueryStringSearch::Comparator.using("∈").does(set).compare_with?(value)
+          comparison = QueryStringSearch::Comparator.using("&").does(set).compare_with?(value)
           expect(comparison).to be_truthy
         end
       end
