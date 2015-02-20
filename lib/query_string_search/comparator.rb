@@ -43,13 +43,15 @@ module QueryStringSearch
   module Comparator
     class ComparisonFactory
       def self.build(config)
-        if config.subject.respond_to?(:each)
-          SetComparison.new(config.subject, config.other)
-        elsif [:<, :>, :<=, :>=].include?(config.operator.to_sym)
-          InequalityComparison.new(config.subject, config.other, config.operator)
-        else
-          EqualityComparison.new(config.subject, config.other)
-        end
+        comparison = if config.subject.respond_to?(:each)
+                       SetComparison
+                     elsif [:<, :>, :<=, :>=].include?(config.operator.to_sym)
+                       InequalityComparison
+                     else
+                       EqualityComparison
+                     end
+
+        comparison.new(config.subject, config.other, config.operator.to_sym)
       end
     end
 
