@@ -55,7 +55,13 @@ module QueryStringSearch
           equal?
         elsif operator == "∈"
           contain?
+        elsif ["<",">","<=",">="]
+          inequal?
         end
+      end
+
+      def inequal?
+        eval("#{other} #{operator} #{subject}")
       end
 
       def equal?
