@@ -21,6 +21,45 @@ RSpec.describe QueryStringSearch::Comparator do
     end
   end
 
+  describe "inequality" do
+    describe "compare_with?" do
+      let(:lower_value) { "2" }
+      let(:higher_value) { "3" }
+
+      it "handles > operator comparisons" do
+        comparison = QueryStringSearch::Comparator.using(">").does(lower_value).compare_with?(higher_value)
+        expect(comparison).to be_truthy
+
+        comparison = QueryStringSearch::Comparator.using(">").does(higher_value).compare_with?(lower_value)
+        expect(comparison).to be_falsey
+      end
+
+      it "handles < operator comparisons" do
+        comparison = QueryStringSearch::Comparator.using("<").does(lower_value).compare_with?(higher_value)
+        expect(comparison).to be_falsey
+
+        comparison = QueryStringSearch::Comparator.using("<").does(higher_value).compare_with?(lower_value)
+        expect(comparison).to be_truthy
+      end
+
+      it "handles >= operator comparisons" do
+        comparison = QueryStringSearch::Comparator.using(">=").does(lower_value).compare_with?(lower_value)
+        expect(comparison).to be_truthy
+
+        comparison = QueryStringSearch::Comparator.using(">=").does(higher_value).compare_with?(lower_value)
+        expect(comparison).to be_falsey
+      end
+
+      it "handles <= operator comparisons" do
+        comparison = QueryStringSearch::Comparator.using("<=").does(lower_value).compare_with?(lower_value)
+        expect(comparison).to be_truthy
+
+        comparison = QueryStringSearch::Comparator.using("<=").does(lower_value).compare_with?(higher_value)
+        expect(comparison).to be_falsey
+      end
+    end
+  end
+
   describe "member of" do
     describe "Using the ∈ operator" do
       describe "compare_with?" do
