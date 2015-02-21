@@ -1,7 +1,10 @@
 class MatchAttributeValue < QueryStringSearch::AbstractMatcher
   def match?(data)
     match_with_contingency do
-      QueryStringSearch::Comparator.using(operator).does(desired_value).compare_with?(actual_value(data))
+      create_comparison(data)
+      comparison.other = actual_value(data)
+      comparison.compare
+      #QueryStringSearch::Comparator.using(operator).does(desired_value).compare_with?(actual_value(data))
     end
   end
 
