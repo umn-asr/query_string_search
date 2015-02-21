@@ -43,7 +43,7 @@ module QueryStringSearch
   module Comparator
     class ComparisonFactory
       def self.build(config)
-        comparison = if config.subject.respond_to?(:each)
+        comparison = if config.subject.respond_to?(:each) || config.other.respond_to?(:each)
                        SetComparison
                      elsif [:<, :>, :<=, :>=].include?(config.operator.to_sym)
                        InequalityComparison
