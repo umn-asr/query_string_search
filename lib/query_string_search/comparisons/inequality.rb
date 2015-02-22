@@ -1,7 +1,7 @@
 module QueryStringSearch
   module Comparator
     class Inequality < AbstractComparison
-      def compare
+      def compare(other)
         other.to_i.public_send(operator, subject.to_i)
       end
 

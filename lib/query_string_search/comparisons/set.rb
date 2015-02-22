@@ -1,7 +1,7 @@
 module QueryStringSearch
   module Comparator
     class Set < AbstractComparison
-      def compare
+      def compare(other)
         (Array(normalize(subject)) & Array(normalize(other))).any?
       end
 
