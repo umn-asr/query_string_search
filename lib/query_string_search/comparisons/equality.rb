@@ -1,7 +1,7 @@
 module QueryStringSearch
   module Comparator
     class Equality < AbstractComparison
-      def compare
+      def compare(other)
         normalize(other) == normalize(subject)
       end
 
