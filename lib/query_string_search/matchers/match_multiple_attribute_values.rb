@@ -1,8 +1,12 @@
 class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
   def match?(data)
     match_with_contingency do
-      QueryStringSearch::Comparator.does(desired_value).contain?(actual_value(data))
+      comparison.compare(actual_value(data))
     end
+  end
+
+  def operator
+    :&
   end
 
   def self.reserved_words

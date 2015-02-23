@@ -1,6 +1,7 @@
 module QueryStringSearch
   class AbstractMatcher
-    attr_accessor :attribute, :desired_value, :operator
+    attr_accessor :attribute, :desired_value
+    attr_reader :operator
 
     def self.matchers
       descendants.push(self)
@@ -24,6 +25,14 @@ module QueryStringSearch
 
     def self.build_me?(_)
       true
+    end
+
+    def operator=(x)
+      @operator = x.to_s.to_sym
+    end
+
+    def comparison
+      @comparison ||= QueryStringSearch::Comparator::ComparisonFactory.build(self)
     end
 
     private
