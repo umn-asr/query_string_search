@@ -1,12 +1,12 @@
 module QueryStringSearch
   module Comparator
     class Set < AbstractComparison
-      def compare
-        (Array(normalize(subject)) & Array(normalize(other))).any?
+      def compare(other)
+        (normalize(subject) & normalize(other)).any?
       end
 
-      def self.build_me?(config)
-        config.subject.respond_to?(:each) || config.other.respond_to?(:each)
+      def self.build_me?(matcher)
+        all_reserved_operators.none? { |o| o == matcher.operator }
       end
     end
   end

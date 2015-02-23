@@ -1,3 +1,5 @@
+require "delegate"
+
 module QueryStringSearch
   module Comparator
     class AbstractComparison
@@ -11,12 +13,16 @@ module QueryStringSearch
         ObjectSpace.each_object(Class).select { |klass| klass < AbstractComparison }
       end
 
+      def self.all_reserved_operators
+        descendants.each_with_object([]) { |d, ret| ret << d.reserved_operators }.flatten
+      end
+
+      def self.reserved_operators
+        []
+      end
+
       def normalize(unnormalized)
-        if unnormalized.respond_to?(:each)
-          unnormalized.map(&:to_s).map(&:upcase)
-        else
-          unnormalized.to_s.upcase
-        end
+        Array(unnormalized).map(&:to_s).map(&:upcase)
       end
 
       def compare
