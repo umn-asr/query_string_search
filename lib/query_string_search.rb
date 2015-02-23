@@ -4,7 +4,8 @@ module QueryStringSearch
   end
 
   class Search
-    attr_accessor :data_source, :query_string
+    attr_accessor :data_source
+    attr_reader :query_string
 
     def initialize(data_source, query_string)
       self.data_source = data_source
@@ -20,6 +21,10 @@ module QueryStringSearch
     end
 
     private
+
+    def query_string=(x)
+      @query_string = x ? CGI.unescape(x) : nil
+    end
 
     def filter_by_param(data, param)
       data.select { |c| param.match?(c) }

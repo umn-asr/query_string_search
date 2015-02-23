@@ -1,32 +1,13 @@
 module QueryStringSearch
-  class SearchOptions
-    attr_reader :search_type, :search_param
-
+  module SearchOptions
     def self.parse(query_string)
       if query_string
-        search_params = query_string.split(",")
-        search_params.each_with_object([]) do |p, ret|
-          ret << new(p)
+        query_string.split(",").each_with_object([]) do |p, ret|
+          ret << QueryStringSearch::SearchOption.new(p)
         end
       else
-        [new(nil)]
+        [QueryStringSearch::SearchOption.new(nil)]
       end
     end
-
-    def initialize(raw_query)
-      self.search_type, self.search_param = raw_query.to_s.split("=")
-    end
-
-    def search_type
-      @search_type ? @search_type.to_sym : nil
-    end
-
-    def search_param
-      @search_param ? CGI.unescape(@search_param) : @search_param
-    end
-
-    private
-
-    attr_writer :search_type, :search_param
   end
 end

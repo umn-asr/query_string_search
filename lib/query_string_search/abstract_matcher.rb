@@ -1,6 +1,7 @@
 module QueryStringSearch
   class AbstractMatcher
-    attr_accessor :attribute, :value
+    attr_accessor :attribute, :desired_value
+    attr_reader :operator
 
     def self.matchers
       descendants.push(self)
@@ -14,11 +15,6 @@ module QueryStringSearch
       descendants.each_with_object([]) { |d, ret| ret << d.reserved_words }.flatten
     end
 
-    def initialize(attribute = nil, value = nil)
-      self.attribute = attribute
-      self.value = value
-    end
-
     def match?(_)
       false
     end
@@ -27,8 +23,16 @@ module QueryStringSearch
       []
     end
 
-    def self.build_me?(_, _)
+    def self.build_me?(_)
       true
+    end
+
+    def operator=(x)
+      @operator = x.to_s.to_sym
+    end
+
+    def comparison
+      @comparison ||= QueryStringSearch::Comparator::ComparisonFactory.build(self)
     end
 
     private
@@ -37,6 +41,10 @@ module QueryStringSearch
       yield
     rescue
       false
+    end
+
+    def actual_value(actual)
+      actual.public_send(attribute)
     end
   end
 end

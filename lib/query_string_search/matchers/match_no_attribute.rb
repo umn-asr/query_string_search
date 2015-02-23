@@ -1,6 +1,6 @@
 class MatchNoAttribute < QueryStringSearch::AbstractMatcher
-  def match?(target)
-    match_with_contingency { !target.public_send(attribute) }
+  def match?(data)
+    match_with_contingency { !actual_value(data) }
   end
 
   def self.reserved_words
@@ -10,7 +10,7 @@ class MatchNoAttribute < QueryStringSearch::AbstractMatcher
     ]
   end
 
-  def self.build_me?(_, search_param)
-    reserved_words.any? { |r| r.match(search_param) }
+  def self.build_me?(search_option)
+    reserved_words.any? { |r| r.match(search_option.desired_value) }
   end
 end

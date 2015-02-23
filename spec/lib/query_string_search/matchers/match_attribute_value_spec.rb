@@ -5,53 +5,77 @@ RSpec.describe MatchAttributeValue do
   describe "match?" do
     describe "given a target with an attribute that matches the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "search_value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns true" do
-        expect(subject.match?(target)).to be_truthy
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search_value"
+        matcher.operator = "="
+        expect(matcher.match?(target)).to be_truthy
       end
     end
 
     describe "given a value with spaces" do
       let(:target) { SearchTarget.new(property: "search value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search value") }
 
       it "returns true" do
-        expect(subject.match?(target)).to be_truthy
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search value"
+        matcher.operator = "="
+        expect(matcher.match?(target)).to be_truthy
       end
     end
 
     describe "given a target with an attribute that does not match the Parameter's attribute" do
       let(:target) { SearchTarget.new(property: "other_value") }
-      let(:subject) { MatchAttributeValue.new(:property, "search_value") }
 
       it "returns false" do
-        expect(subject.match?(target)).to be_falsey
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :property
+        matcher.desired_value = "search_value"
+        matcher.operator = "="
+        expect(matcher.match?(target)).to be_falsey
       end
     end
 
     describe "if the target doesn't have the attribute" do
       let(:target) { SearchTarget.new(property: "search_value") }
-      let(:subject) { MatchAttribute.new(:bad_attr, "search_value") }
 
       it "is false" do
-        expect(subject.match?(target)).to be_falsey
+        matcher = MatchAttributeValue.new
+        matcher.attribute = :bat_attr
+        matcher.desired_value = "search_value"
+        matcher.operator = "="
+        expect(matcher.match?(target)).to be_falsey
       end
     end
   end
 
   describe "build_me?" do
-    describe "given a non-nil search_type and search_param" do
+    let(:search_option) { instance_double(QueryStringSearch::SearchOption) }
+
+    describe "given a non-nil attribute and desired_value" do
       it "is true" do
-        expect(MatchAttributeValue.build_me?(rand.to_s, rand.to_s)).to be_truthy
+        allow(search_option).to receive(:attribute).and_return(rand.to_s)
+        allow(search_option).to receive(:desired_value).and_return(rand.to_s)
+        expect(MatchAttributeValue.build_me?(search_option)).to be_truthy
       end
     end
 
-    describe "given a nil search_type or search_param" do
+    describe "given a nil attribute or desired_value" do
       it "is false" do
-        expect(MatchAttributeValue.build_me?(rand.to_s, nil)).to be_falsey
-        expect(MatchAttributeValue.build_me?(nil, rand.to_s)).to be_falsey
-        expect(MatchAttributeValue.build_me?(nil, nil)).to be_falsey
+        allow(search_option).to receive(:attribute).and_return(rand.to_s)
+        allow(search_option).to receive(:desired_value).and_return(nil)
+        expect(MatchAttributeValue.build_me?(search_option)).to be_falsey
+
+        allow(search_option).to receive(:attribute).and_return(nil)
+        allow(search_option).to receive(:desired_value).and_return(rand.to_s)
+        expect(MatchAttributeValue.build_me?(search_option)).to be_falsey
+
+        allow(search_option).to receive(:attribute).and_return(nil)
+        allow(search_option).to receive(:desired_value).and_return(nil)
+        expect(MatchAttributeValue.build_me?(search_option)).to be_falsey
       end
     end
   end
