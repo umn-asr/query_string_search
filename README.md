@@ -37,13 +37,13 @@ Returns all movies with a year of 1994 or 1995
 ### Return all data with values greater than or less than an attribute
 
 `movies?q=star_rating>1`
-Returns all movies with a star rating higher than one
+Returns all movies with a star rating greater than one
 
 `movies?q=star_rating<3`
 Returns all movies with a star rating less than three
 
 `movies?q=star_rating>=2`
-Returns all movies with a star rating greater than or equal to 1
+Returns all movies with a star rating greater than or equal to 2
 
 `movies?q=star_rating<=4`
 Returns all movies with a star rating less than or equal to 4
