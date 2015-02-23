@@ -27,7 +27,10 @@ module QueryStringSearch
     end
 
     def comparison
-      @comparison ||= QueryStringSearch::Comparator::Comparison.new(self)
+      config = OpenStruct.new
+      config.subject = desired_value
+      config.operator = operator
+      @comparison ||= QueryStringSearch::Comparator::ComparisonFactory.build(config)
     end
 
     private
