@@ -2,51 +2,32 @@ require_relative "../../../lib/query_string_search/search_options"
 
 RSpec.describe QueryStringSearch::SearchOptions do
   describe "parse" do
-    describe "with a single-element and multi-element query_string" do
-      let(:single_query_string) { "test=filter" }
-      let(:multi_query_string) { "test=filter,test2=test%20attribute" }
-      let(:single_element) { QueryStringSearch::SearchOptions.parse(single_query_string) }
-      let(:multi_element) { QueryStringSearch::SearchOptions.parse(multi_query_string) }
+    describe "with a single-element query_string" do
+      it "returns a collection of a single search option" do
+        option_double = Object.new
+        expect(QueryStringSearch::SearchOption).to receive(:new).with("test=filter").and_return(option_double)
+        expect(QueryStringSearch::SearchOptions.parse("test=filter")).to eq([option_double])
+      end
+    end
 
-      describe "returns a collection" do
-        it "that is enumerable" do
-          [single_element, multi_element].each do |it|
-            expect(it).to respond_to(:each)
-          end
-        end
-
-        describe "whose contents" do
-          it "have search_type that are symbols" do
-            expect(single_element.collect(&:search_type)).to eq([:test])
-            expect(multi_element.collect(&:search_type)).to eq([:test, :test2])
-          end
-
-          it "have search_param that are unescaped strings" do
-            expect(single_element.collect(&:search_param)).to eq(["filter"])
-            expect(multi_element.collect(&:search_param)).to eq(["filter", "test attribute"])
-          end
-        end
+    describe "with a multi-element query_string" do
+      let(:multi_query_string) { "test=filter,test2=test attribute" }
+      it "returns a collection of a multiple search options" do
+        option_double1 = Object.new
+        option_double2 = Object.new
+        expect(QueryStringSearch::SearchOption).to receive(:new).with("test=filter").and_return(option_double1)
+        expect(QueryStringSearch::SearchOption).to receive(:new).with("test2=test attribute").and_return(option_double2)
+        expect(QueryStringSearch::SearchOptions.parse(multi_query_string)).to eq([option_double1, option_double2])
       end
     end
 
     describe "with a nil" do
       let(:nil_element) { QueryStringSearch::SearchOptions.parse(nil) }
-      describe "returns a collection" do
-        it "that is enumerable" do
-          expect(nil_element).to respond_to(:each)
-        end
+      it "creates a collection with one nil search option" do
+        option_double = Object.new
+        expect(QueryStringSearch::SearchOption).to receive(:new).with(nil).and_return(option_double)
 
-        it "with one element" do
-          expect(nil_element.count).to eq(1)
-        end
-
-        it "with nil search_type" do
-          expect(nil_element.first.search_type).to be_nil
-        end
-
-        it "with nil search_param" do
-          expect(nil_element.first.search_param).to be_nil
-        end
+        expect(QueryStringSearch::SearchOptions.parse(nil)).to eq([option_double])
       end
     end
   end

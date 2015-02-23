@@ -5,13 +5,13 @@ module QueryStringSearch
     def_delegators :@collection, :each
 
     def self.build_from_querystring(query_string, factory = QueryStringSearch::MatcherFactory, matchers = QueryStringSearch::AbstractMatcher.matchers)
-      parameters = QueryStringSearch::SearchOptions.parse(query_string)
-      new(parameters, factory, matchers)
+      search_options = QueryStringSearch::SearchOptions.parse(query_string)
+      new(search_options, factory, matchers)
     end
 
-    def initialize(parameters, factory, matchers)
-      parameters.each do |param|
-        collection << factory.build(param, matchers)
+    def initialize(search_options, factory, matchers)
+      search_options.each do |search_option|
+        collection << factory.build(search_option, matchers)
       end
     end
 
