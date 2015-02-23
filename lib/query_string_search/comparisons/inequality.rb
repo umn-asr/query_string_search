@@ -2,11 +2,19 @@ module QueryStringSearch
   module Comparator
     class Inequality < AbstractComparison
       def compare(other)
-        other.to_i.public_send(operator, subject.to_i)
+        normalize(other).public_send(operator, normalize(subject))
       end
 
-      def self.build_me?(config)
-        [:<, :>, :<=, :>=].include?(config.operator.to_sym)
+      def normalize(unnormalized)
+        unnormalized.to_i
+      end
+
+      def self.reserved_operators
+        [:<, :>, :<=, :>=]
+      end
+
+      def self.build_me?(matcher)
+        reserved_operators.include?(matcher.operator)
       end
     end
   end

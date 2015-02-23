@@ -5,8 +5,8 @@ module QueryStringSearch
         (normalize(subject) & normalize(other)).any?
       end
 
-      def self.build_me?(config)
-        ![:<, :>, :<=, :>=].include?(config.operator.to_sym)
+      def self.build_me?(matcher)
+        all_reserved_operators.none? { |o| o == matcher.operator }
       end
     end
   end
