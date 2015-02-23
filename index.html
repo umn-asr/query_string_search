@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Query string search by umn-asr</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Query string search</h1>
+        <p class="header">Quick query-string-based filtering of data</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/umn-asr/query_string_search/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/umn-asr/query_string_search/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/umn-asr/query_string_search">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/umn-asr">umn-asr</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="query-string-search" class="anchor" href="#query-string-search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Query String Search</h1>
+
+<p>Provides an easy way to implement filtering in your API endpoints</p>
+
+<h2>
+<a id="searches-it-supports" class="anchor" href="#searches-it-supports" aria-hidden="true"><span class="octicon octicon-link"></span></a>Searches it supports</h2>
+
+<p>Say you have a <code>movies</code> endpoint and people want to be able to filter down your huge collection of movie data. The API Search gem will give you the following filtering functionality:</p>
+
+<h3>
+<a id="return-all-data" class="anchor" href="#return-all-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data</h3>
+
+<p><code>movies</code> will return every movie in the data set.</p>
+
+<h3>
+<a id="return-all-data-with-non-null-attribute-value" class="anchor" href="#return-all-data-with-non-null-attribute-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with non-null attribute value</h3>
+
+<p><code>movies?q=rating=all</code></p>
+
+<p>Returns every movie with a non-nil rating.</p>
+
+<h3>
+<a id="return-all-data-with-null-attribute-value" class="anchor" href="#return-all-data-with-null-attribute-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with null attribute value</h3>
+
+<p><code>movies?q=rating=none</code></p>
+
+<p>Returns every movie without ratings.</p>
+
+<h3>
+<a id="return-all-data-with-an-attribute-value-that-matches" class="anchor" href="#return-all-data-with-an-attribute-value-that-matches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with an attribute value that matches</h3>
+
+<p><code>movies?q=year=1994</code></p>
+
+<p>Returns every movie with a year of 1994</p>
+
+<h3>
+<a id="return-all-data-that-matches-one-of-many-attributes" class="anchor" href="#return-all-data-that-matches-one-of-many-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data that matches one of many attributes</h3>
+
+<p><code>movies?q=year=1994|1995</code></p>
+
+<p>Returns all movies with a year of 1994 or 1995</p>
+
+<h3>
+<a id="return-all-data-with-values-greater-than-or-less-than-an-attribute" class="anchor" href="#return-all-data-with-values-greater-than-or-less-than-an-attribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with values greater than or less than an attribute</h3>
+
+<p><code>movies?q=star_rating&gt;1</code>
+Returns all movies with a star rating greater than one</p>
+
+<p><code>movies?q=star_rating&lt;3</code>
+Returns all movies with a star rating less than three</p>
+
+<p><code>movies?q=star_rating&gt;=2</code>
+Returns all movies with a star rating greater than or equal to 2</p>
+
+<p><code>movies?q=star_rating&lt;=4</code>
+Returns all movies with a star rating less than or equal to 4</p>
+
+<h3>
+<a id="search-an-attribute-that-returns-a-collection" class="anchor" href="#search-an-attribute-that-returns-a-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search an attribute that returns a collection</h3>
+
+<p>If your <code>movie</code> has a <code>home_formats</code> method that retuns an array like <code>["DVD", "BD"]</code> you can filter that too.</p>
+
+<p><code>movies?q=home_formats=DVD</code>
+Returns all movies whose <code>home_formats</code> includes "DVD"</p>
+
+<p>or</p>
+
+<p><code>movies?q=home_formats=BD|DVD</code>
+Returns all movies whose <code>home_formats</code> includes "DVD" or "BD"</p>
+
+<h3>
+<a id="combining-searches" class="anchor" href="#combining-searches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Combining Searches</h3>
+
+<p>Search criteria can be separated with commas</p>
+
+<p><code>movie?q=year=1994,country=US,rated=none</code></p>
+
+<p>Records that match <strong>all</strong> the criteria will be returned. All un-rated movies made in the US in 1994.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s1"><span class="pl-pds">'</span>query_string_search<span class="pl-pds">'</span></span></pre></div>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>First, create a collection of data. With ActiveRecord or other ORMs this is straightforward:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">Movie</span>.all</pre></div>
+
+<p>Or something similar. As long as it returns a collection of objects, you should be good.</p>
+
+<p>The objects must respond to the attributes you want to search on. Say you want to allow a search string like this:</p>
+
+<pre><code>`movies?q=year=1994`
+</code></pre>
+
+<p>Then every object in your data collection needs to respond to <code>year</code>.</p>
+
+<p>Again, with ActiveRecord this is pretty straightforward. But if you're building your data source from raw SQL then you're going to have to convert that data into objects that respond to the attributes you want to search on.</p>
+
+<p>Second, search! In Rails you can do something like this in a Controller method.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(data, query_string).results</pre></div>
+
+<p>This returns a collection of the objects that matched the search criteria.</p>
+
+<p>Or you can do it not in the controller. This will work:</p>
+
+<div class="highlight highlight-ruby"><pre>test_query <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>country=us<span class="pl-pds">"</span></span>
+<span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(<span class="pl-s3">Movie</span>.all, test_query).results</pre></div>
+
+<p>You get the idea. Pass in a data set and a query-stringish string and you'll get results back.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ul>
+<li>Fork, branch, commit &amp; pull.</li>
+<li>Tests are required.</li>
+<li>Don't go against our Rubocop style guidelines.</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>© Regents of the University of Minnesota. All rights reserved.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
