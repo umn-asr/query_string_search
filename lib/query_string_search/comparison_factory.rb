@@ -7,7 +7,6 @@ module QueryStringSearch
         if comparison_to_build
           comparison = comparison_to_build.new
           comparison.subject = config.subject
-          comparison.other = config.other
           comparison.operator = config.operator.to_sym
           comparison
         end
