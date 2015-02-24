@@ -49,7 +49,7 @@ All movies available on BD or DVD, that are rated R or PG, and that have a star 
 
 This gem fits best when you're trying to provide very flexible searching on a relatively small and flat set of data. Because it filters a data set that you provide, the speed at which it works is wholly dependent on the size of your data set.
 
-We currently use this gem on a small (~2000 rows) data set which is cached in memory. Response times using Rails/Passenger/Apache are < 100ms. That's plenty fast! But if your initial data set is massive, or you can't cache it, your response times will be slower. Such is life. Gems like [Periscope](https://rubygems.org/gems/periscope) or [has_scope](https://rubygems.org/gems/has_scope) may be more your speed.
+We currently use this gem on a small (~2000 rows) data set which is cached in memory. Response times using Rails/Passenger/Apache are always under 100ms, usually under 50ms. That's plenty fast! But if your initial data set is massive, or you can't cache it, your response times will be slower. Such is life. Gems like [Periscope](https://rubygems.org/gems/periscope) or [has_scope](https://rubygems.org/gems/has_scope) may be more your speed.
 
 A downside of gems like those, though, is that you end up defining all of your filtering methods in advance. This is not the case with Query String Search. If the elements in your data set respond to a method, then the data can be filtered by that attribute. It is possible that this is not what you want. In which case, check out those other gems. Or, you could also wrap your object instances in a wrapper that only responds to the methods that you want to filter on.
 
