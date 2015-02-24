@@ -51,7 +51,7 @@ This gem fits best when you're trying to provide very flexible searching on a re
 
 We currently use this gem on a small (~2000 rows) data set which is cached in memory. Response times using Rails/Passenger/Apache are always under 100ms, usually under 50ms. That's plenty fast! But if your initial data set is massive, or you can't cache it, your response times will be slower. Such is life. Gems like [Periscope](https://rubygems.org/gems/periscope) or [has_scope](https://rubygems.org/gems/has_scope) may be more your speed.
 
-A downside of gems like those, though, is that you end up defining all of your filtering methods in advance. This is not the case with Query String Search. If the elements in your data set respond to a method, then the data can be filtered by that attribute. It is possible that this is not what you want. In which case, check out those other gems. Or, you could also wrap your object instances in a wrapper that only responds to the methods that you want to filter on.
+A downside of gems like those, though, is that you end up defining all of your filtering methods in advance. This is not the case with Query String Search. If the elements in your data set respond to a method, then the data can be filtered by the return value of that method. It is possible that this is not what you want. In which case, check out those other gems. Or, you could also wrap your object instances in a wrapper that only responds to the methods that you want to filter on.
 
 Also, this gem is platform and persistence agnostic. Rails? Sinatra? Cuba? Redis? Postgres? Doesn't matter. You pass it objects, it filters them down based on the query string.
 
@@ -65,7 +65,7 @@ Movie.all
 
 Or something similar. As long as it returns a collection of objects, you should be good.
 
-The objects must respond to the attributes you want to search on. Say you want to allow a search string like this:
+The objects must respond to the methods you want to search on. Say you want to allow a search string like this:
 
 `movies?q=year=1994`
 
