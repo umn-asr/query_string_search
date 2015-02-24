@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/umn-asr/query_string_search/badges/gpa.svg)](https://codeclimate.com/github/umn-asr/query_string_search)
 [![Gem Version](https://badge.fury.io/rb/query_string_search.svg)](http://badge.fury.io/rb/query_string_search)
 
-Provides an easy way to implement searching in your API endpoints
+Provides an easy way to implement searching in your API endpoints.
 
 ## Searches it supports
 
@@ -53,6 +53,7 @@ We currently use this gem on a small (~2000 rows) data set which is cached in me
 
 A downside of gems like those, though, is that you end up defining all of your filtering methods in advance. This is not the case with Query String Search. If the elements in your data set respond to a method, then the data can be filtered by that attribute. It is possible that this is not what you want. In which case, check out those other gems. Or, you could also wrap your object instances in a wrapper that only responds to the methods that you want to filter on.
 
+Also, this gem is platform and persistence agnostic. Rails? Sinatra? Cuba? Redis? Postgres? Doesn't matter. You pass it objects, it filters them down based on the query string.
 
 ## Usage
 
