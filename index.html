@@ -33,82 +33,141 @@
         <h1>
 <a id="query-string-search" class="anchor" href="#query-string-search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Query String Search</h1>
 
-<p>Provides an easy way to implement filtering in your API endpoints</p>
+<p><a href="https://travis-ci.org/umn-asr/query_string_search"><img src="https://api.travis-ci.org/umn-asr/query_string_search.svg?branch=master" alt="Build Status"></a> 
+<a href="https://codeclimate.com/github/umn-asr/query_string_search"><img src="https://codeclimate.com/github/umn-asr/query_string_search/badges/gpa.svg" alt="Code Climate"></a>
+<a href="http://badge.fury.io/rb/query_string_search"><img src="https://badge.fury.io/rb/query_string_search.svg" alt="Gem Version"></a></p>
+
+<p>Provides an easy way to implement searching in your API endpoints.</p>
 
 <h2>
 <a id="searches-it-supports" class="anchor" href="#searches-it-supports" aria-hidden="true"><span class="octicon octicon-link"></span></a>Searches it supports</h2>
 
-<p>Say you have a <code>movies</code> endpoint and people want to be able to filter down your huge collection of movie data. The API Search gem will give you the following filtering functionality:</p>
+<p>Say you have a <code>movies</code> endpoint and people want to be able to search your huge collection of movie data. Each of your movies have these properties</p>
 
-<h3>
-<a id="return-all-data" class="anchor" href="#return-all-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data</h3>
+<ul>
+<li>Rating: returns "PG", "R", etc. Can also return nil</li>
+<li>Year: returns the year the film was released</li>
+<li>Title: The movie's title</li>
+<li>Star Rating: returns a number 1 to 5</li>
+<li>Home Formats: returns an array of available home formats. <code>["DVD", "BD"]</code>, for example.</li>
+</ul>
 
-<p><code>movies</code> will return every movie in the data set.</p>
+<p>The API Search gem will give you the following search functionality:</p>
 
-<h3>
-<a id="return-all-data-with-non-null-attribute-value" class="anchor" href="#return-all-data-with-non-null-attribute-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with non-null attribute value</h3>
-
-<p><code>movies?q=rating=all</code></p>
-
-<p>Returns every movie with a non-nil rating.</p>
-
-<h3>
-<a id="return-all-data-with-null-attribute-value" class="anchor" href="#return-all-data-with-null-attribute-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with null attribute value</h3>
-
-<p><code>movies?q=rating=none</code></p>
-
-<p>Returns every movie without ratings.</p>
-
-<h3>
-<a id="return-all-data-with-an-attribute-value-that-matches" class="anchor" href="#return-all-data-with-an-attribute-value-that-matches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with an attribute value that matches</h3>
-
-<p><code>movies?q=year=1994</code></p>
-
-<p>Returns every movie with a year of 1994</p>
-
-<h3>
-<a id="return-all-data-that-matches-one-of-many-attributes" class="anchor" href="#return-all-data-that-matches-one-of-many-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data that matches one of many attributes</h3>
-
-<p><code>movies?q=year=1994|1995</code></p>
-
-<p>Returns all movies with a year of 1994 or 1995</p>
-
-<h3>
-<a id="return-all-data-with-values-greater-than-or-less-than-an-attribute" class="anchor" href="#return-all-data-with-values-greater-than-or-less-than-an-attribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return all data with values greater than or less than an attribute</h3>
-
-<p><code>movies?q=star_rating&gt;1</code>
-Returns all movies with a star rating greater than one</p>
-
-<p><code>movies?q=star_rating&lt;3</code>
-Returns all movies with a star rating less than three</p>
-
-<p><code>movies?q=star_rating&gt;=2</code>
-Returns all movies with a star rating greater than or equal to 2</p>
-
-<p><code>movies?q=star_rating&lt;=4</code>
-Returns all movies with a star rating less than or equal to 4</p>
-
-<h3>
-<a id="search-an-attribute-that-returns-a-collection" class="anchor" href="#search-an-attribute-that-returns-a-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search an attribute that returns a collection</h3>
-
-<p>If your <code>movie</code> has a <code>home_formats</code> method that retuns an array like <code>["DVD", "BD"]</code> you can filter that too.</p>
-
-<p><code>movies?q=home_formats=DVD</code>
-Returns all movies whose <code>home_formats</code> includes "DVD"</p>
-
-<p>or</p>
-
-<p><code>movies?q=home_formats=BD|DVD</code>
-Returns all movies whose <code>home_formats</code> includes "DVD" or "BD"</p>
+<table>
+<thead>
+<tr>
+<th>Query String Example</th>
+<th>What Data is Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>movies</code></td>
+<td>All data in your data set</td>
+</tr>
+<tr>
+<td><code>movies?q=rating=all</code></td>
+<td>Movies with a non-nil rating</td>
+</tr>
+<tr>
+<td><code>movies?q=rating=none</code></td>
+<td>Movies with a nil rating</td>
+</tr>
+<tr>
+<td><code>movies?q=year=1994</code></td>
+<td>Movies with a year of 1994</td>
+</tr>
+<tr>
+<td><code>movies?q=year=1994|1995</code></td>
+<td>Movies with a year of 1994 or 1995</td>
+</tr>
+<tr>
+<td><code>movies?q=title=Dunston%20Checks%20In</code></td>
+<td>Movies with the title Dunston Checks In</td>
+</tr>
+<tr>
+<td><code>movies?q=star_rating&gt;1</code></td>
+<td>Movies with a star rating greater than one</td>
+</tr>
+<tr>
+<td><code>movies?q=star_rating&lt;3</code></td>
+<td>Movies with a star rating less than three</td>
+</tr>
+<tr>
+<td><code>movies?q=star_rating&gt;=2</code></td>
+<td>Movies with a star rating greater than or equal to 2</td>
+</tr>
+<tr>
+<td><code>movies?q=star_rating&lt;=4</code></td>
+<td>Movies with a star rating less than or equal to 4</td>
+</tr>
+<tr>
+<td><code>movies?q=home_formats=DVD</code></td>
+<td>Movies that are available on DVD.</td>
+</tr>
+<tr>
+<td><code>movies?q=home_formats=DVD|BD</code></td>
+<td>Movies that are available on DVD or Blu Ray</td>
+</tr>
+</tbody>
+</table>
 
 <h3>
 <a id="combining-searches" class="anchor" href="#combining-searches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Combining Searches</h3>
 
-<p>Search criteria can be separated with commas</p>
+<p>Any of the above critera can be combined. 
+Just separate criteria with commas. 
+Records that match <strong>all</strong> the criteria will be returned. 
+Some examples!</p>
 
-<p><code>movie?q=year=1994,country=US,rated=none</code></p>
+<p><code>movie?q=year=1994,country=US,rated=none</code><br>
+ All un-rated movies made in the US in 1994.</p>
 
-<p>Records that match <strong>all</strong> the criteria will be returned. All un-rated movies made in the US in 1994.</p>
+<p><code>movie?q=home_formats=BD|DVD,rated=R|PG,star_rating&gt;3</code><br>
+All movies available on BD or DVD, that are rated R or PG, and that have a star rating greater than 3</p>
+
+<h2>
+<a id="use-cases" class="anchor" href="#use-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use Cases</h2>
+
+<p>This gem fits best when you're trying to provide very flexible searching on a relatively small and flat set of data. Because it filters a data set that you provide, the speed at which it works is wholly dependent on the size of your data set.</p>
+
+<p>We currently use this gem on a small (~2000 rows) data set which is cached in memory. Response times using Rails/Passenger/Apache are always under 100ms, usually under 50ms. That's plenty fast! But if your initial data set is massive, or you can't cache it, your response times will be slower. Such is life. Gems like <a href="https://rubygems.org/gems/periscope">Periscope</a> or <a href="https://rubygems.org/gems/has_scope">has_scope</a> may be more your speed.</p>
+
+<p>A downside of gems like those, though, is that you end up defining all of your filtering methods in advance. This is not the case with Query String Search. If the elements in your data set respond to a method, then the data can be filtered by the return value of that method. It is possible that this is not what you want. In which case, check out those other gems. Or, you could also wrap your object instances in a wrapper that only responds to the methods that you want to filter on.</p>
+
+<p>Also, this gem is platform and persistence agnostic. Rails? Sinatra? Cuba? Redis? Postgres? Doesn't matter. You pass it objects, it filters them down based on the query string.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>First, create a collection of data. With ActiveRecord or other ORMs this is straightforward:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">Movie</span>.all</pre></div>
+
+<p>Or something similar. As long as it returns a collection of objects, you should be good.</p>
+
+<p>The objects must respond to the methods you want to search on. Say you want to allow a search string like this:</p>
+
+<p><code>movies?q=year=1994</code></p>
+
+<p>Then every object in your data collection needs to respond to <code>year</code>.</p>
+
+<p>Second, search! In Rails you can do something like this in a Controller method.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">def</span> <span class="pl-en">index</span>
+  query_string <span class="pl-k">=</span> params[<span class="pl-c1">:q</span>]
+  <span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(<span class="pl-s3">Movie</span>.all, query_string).results
+  <span class="pl-c">#....</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>This returns a collection of the objects that matched the search criteria.</p>
+
+<p>Or you can do it not in the controller. This will work:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(<span class="pl-s3">Movie</span>.all, <span class="pl-s1"><span class="pl-pds">"</span>country=us<span class="pl-pds">"</span></span>).results</pre></div>
+
+<p>You get the idea. Pass in a data set and a query-stringish string and you'll get results back.</p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -121,37 +180,6 @@ Returns all movies whose <code>home_formats</code> includes "DVD" or "BD"</p>
 
 <pre><code>$ bundle
 </code></pre>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>First, create a collection of data. With ActiveRecord or other ORMs this is straightforward:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="pl-s3">Movie</span>.all</pre></div>
-
-<p>Or something similar. As long as it returns a collection of objects, you should be good.</p>
-
-<p>The objects must respond to the attributes you want to search on. Say you want to allow a search string like this:</p>
-
-<pre><code>`movies?q=year=1994`
-</code></pre>
-
-<p>Then every object in your data collection needs to respond to <code>year</code>.</p>
-
-<p>Again, with ActiveRecord this is pretty straightforward. But if you're building your data source from raw SQL then you're going to have to convert that data into objects that respond to the attributes you want to search on.</p>
-
-<p>Second, search! In Rails you can do something like this in a Controller method.</p>
-
-<div class="highlight highlight-ruby"><pre><span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(data, query_string).results</pre></div>
-
-<p>This returns a collection of the objects that matched the search criteria.</p>
-
-<p>Or you can do it not in the controller. This will work:</p>
-
-<div class="highlight highlight-ruby"><pre>test_query <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>country=us<span class="pl-pds">"</span></span>
-<span class="pl-s3">QueryStringSearch</span>.<span class="pl-k">new</span>(<span class="pl-s3">Movie</span>.all, test_query).results</pre></div>
-
-<p>You get the idea. Pass in a data set and a query-stringish string and you'll get results back.</p>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
