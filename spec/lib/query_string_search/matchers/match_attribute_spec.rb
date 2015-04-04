@@ -46,7 +46,7 @@ RSpec.describe MatchAttribute do
     describe "if the target's attribute is false" do
       let(:target) { SearchTarget.new(property: false) }
 
-      it "is true" do
+      it "is false" do
         matcher = MatchAttribute.new
         matcher.attribute = :property
         expect(matcher.match?(target)).to be_falsey
