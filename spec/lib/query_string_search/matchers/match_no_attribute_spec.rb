@@ -27,7 +27,7 @@ RSpec.describe MatchNoAttribute do
       let(:target) { SearchTarget.new(property: %w(a b c)) }
 
       it "is false" do
-        matcher = MatchAttribute.new
+        matcher = MatchNoAttribute.new
         matcher.attribute = :property
         expect(matcher.match?(target)).to be_falsey
       end
