@@ -16,7 +16,7 @@ class Movie
     self.country     = random_country
     self.seen        = [true, false].sample
     self.star_rating = [1, 2, 3, 4, 5].sample
-    self.home_formats = %w(BD DVD Hulu Amazon Netflix).sample(2)
+    self.home_formats = %w(BD DVD Hulu Amazon Netflix).sample(rand(2))
   end
 
   def seen?
