@@ -1,6 +1,9 @@
 class MatchAttribute < QueryStringSearch::AbstractMatcher
   def match?(data)
-    match_with_contingency { actual_value(data) }
+    match_with_contingency do
+      actual_value(data) == true ||
+        Array(actual_value(data)).any?
+    end
   end
 
   def self.reserved_words
