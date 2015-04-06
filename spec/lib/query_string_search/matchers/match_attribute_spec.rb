@@ -23,6 +23,16 @@ RSpec.describe MatchAttribute do
       end
     end
 
+    describe "if the target's attribute returns a collection" do
+      let(:target) { SearchTarget.new(property: %w(a b c)) }
+
+      it "is true" do
+        matcher = MatchAttribute.new
+        matcher.attribute = :property
+        expect(matcher.match?(target)).to be_truthy
+      end
+    end
+
     describe "if the target's attribute is nil" do
       let(:target) { SearchTarget.new(property: nil) }
 
@@ -36,7 +46,7 @@ RSpec.describe MatchAttribute do
     describe "if the target's attribute is false" do
       let(:target) { SearchTarget.new(property: false) }
 
-      it "is true" do
+      it "is false" do
         matcher = MatchAttribute.new
         matcher.attribute = :property
         expect(matcher.match?(target)).to be_falsey

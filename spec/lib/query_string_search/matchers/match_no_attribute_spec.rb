@@ -23,6 +23,16 @@ RSpec.describe MatchNoAttribute do
       end
     end
 
+    describe "if the target's attribute returns a collection" do
+      let(:target) { SearchTarget.new(property: %w(a b c)) }
+
+      it "is false" do
+        matcher = MatchNoAttribute.new
+        matcher.attribute = :property
+        expect(matcher.match?(target)).to be_falsey
+      end
+    end
+
     describe "if the target's attribute is false" do
       let(:target) { SearchTarget.new(property: false) }
 
