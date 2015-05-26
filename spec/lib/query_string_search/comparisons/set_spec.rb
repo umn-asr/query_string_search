@@ -25,4 +25,22 @@ RSpec.describe QueryStringSearch::SetComparison do
       end
     end
   end
+
+  describe "comparing for absence" do
+    before do
+      comparison.operator = :!=
+    end
+
+    describe "target has the data" do
+      it "returns false" do
+        expect(comparison.compare(value)).to be_falsey
+      end
+    end
+
+    describe "target does not have the data" do
+      it "returns true" do
+        expect(comparison.compare(value + 1)).to be_truthy
+      end
+    end
+  end
 end
