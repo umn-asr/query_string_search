@@ -5,10 +5,6 @@ class MatchMultipleAttributeValues < QueryStringSearch::AbstractMatcher
     end
   end
 
-  def operator
-    :&
-  end
-
   def self.reserved_words
     [
       /^\w+\|\w+/
