@@ -32,7 +32,7 @@ module QueryStringSearch
     end
 
     def comparison
-      @comparison ||= QueryStringSearch::Comparator::ComparisonFactory.build(self)
+      @comparison ||= QueryStringSearch::ComparisonFactory.build(self)
     end
 
     private

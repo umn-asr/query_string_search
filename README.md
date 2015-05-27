@@ -24,6 +24,8 @@ Query String Example  | What Data is Returned
 `movies?q=rating=none` | Movies with a nil rating
 `movies?q=year=1994` | Movies with a year of 1994
 `movies?q=year=1994|1995` | Movies with a year of 1994 or 1995
+`movies?q=year!1994` | Movies with a year that is not 1994
+`movies?q=year!1994|1995` | Movies with a year that is not 1994 or 1995
 `movies?q=title=Dunston%20Checks%20In` | Movies with the title Dunston Checks In
 `movies?q=star_rating>1` | Movies with a star rating greater than one
 `movies?q=star_rating<3` | Movies with a star rating less than three
@@ -31,6 +33,8 @@ Query String Example  | What Data is Returned
 `movies?q=star_rating<=4` | Movies with a star rating less than or equal to 4
 `movies?q=home_formats=DVD` | Movies that are available on DVD.
 `movies?q=home_formats=DVD|BD` | Movies that are available on DVD or Blu Ray
+`movies?q=home_formats!DVD` | Movies that are not available on DVD.
+`movies?q=home_formats!=DVD|BD` | Movies that are not available on DVD or Blu Ray
 
 ### Combining Searches
 
